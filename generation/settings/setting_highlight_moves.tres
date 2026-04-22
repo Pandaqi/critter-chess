@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PuzzleSettingCheckbox" format=3 uid="uid://cryvpmwnyrrem"]
+
+[ext_resource type="Script" uid="uid://dhfd6mahjlglv" path="res://puzzle-framework/settings/setting_checkbox.gd" id="1_2fpxu"]
+
+[resource]
+script = ExtResource("1_2fpxu")
+key = "highlight_moves"
+label = "Highlight Possible Moves"
+default = false
+tooltip = "Shows all the possible spaces that the selected piece can move to."
+metadata/_custom_type_script = "uid://dhfd6mahjlglv"

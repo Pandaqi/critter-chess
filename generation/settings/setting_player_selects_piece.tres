@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PuzzleSettingCheckbox" format=3 uid="uid://db5arb4tksbh2"]
+
+[ext_resource type="Script" uid="uid://dhfd6mahjlglv" path="res://puzzle-framework/settings/setting_checkbox.gd" id="1_160jg"]
+
+[resource]
+script = ExtResource("1_160jg")
+key = "player_selects_piece"
+label = "Player Selects Piece"
+default = true
+tooltip = "If turned off, the (correct) next piece to move is automatically selected for you."
+metadata/_custom_type_script = "uid://dhfd6mahjlglv"

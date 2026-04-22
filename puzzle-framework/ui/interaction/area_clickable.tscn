@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://bbb7i7psjnfym"]
+
+[ext_resource type="Script" uid="uid://dtfc6w528ykmy" path="res://puzzle-framework/ui/interaction/area_clickable.gd" id="1_3w6ab"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bkkib"]
+
+[node name="AreaClickable" type="Area2D" unique_id=1800888092 node_paths=PackedStringArray("col_shape")]
+script = ExtResource("1_3w6ab")
+col_shape = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1993596490]
+shape = SubResource("RectangleShape2D_bkkib")

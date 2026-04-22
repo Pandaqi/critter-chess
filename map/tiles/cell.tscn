@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://blfjqyfj54gab"]
+
+[ext_resource type="Script" uid="uid://bxia7qdcv83vn" path="res://map/tiles/cell.gd" id="1_vj45x"]
+[ext_resource type="Texture2D" uid="uid://d0jnogcbluo7d" path="res://map/tiles/tiles-spritesheet.png" id="2_i6nvy"]
+[ext_resource type="Script" uid="uid://by87lts1q50f" path="res://map/tiles/home/home.gd" id="3_bkkib"]
+[ext_resource type="Texture2D" uid="uid://tjfxfbp70ll4" path="res://map/tiles/target-shadow.png" id="4_l28qi"]
+[ext_resource type="Texture2D" uid="uid://bhc076q1jq1jn" path="res://map/tiles/target-trunk.png" id="5_ts5mw"]
+[ext_resource type="PackedScene" uid="uid://b2kca4c2r61np" path="res://map/critters/critter.tscn" id="6_5wjym"]
+[ext_resource type="Script" uid="uid://c136i80g3nyah" path="res://map/critters/critter.gd" id="6_ts5mw"]
+[ext_resource type="Shader" uid="uid://dbsyeej8soqua" path="res://map/critters/critter_base_shader.gdshader" id="7_5wjym"]
+[ext_resource type="PackedScene" uid="uid://bbb7i7psjnfym" path="res://puzzle-framework/ui/interaction/area_clickable.tscn" id="7_i6nvy"]
+[ext_resource type="Texture2D" uid="uid://7c85b4wefmd2" path="res://map/critters/animals-spritesheet.png" id="8_a3ay5"]
+[ext_resource type="AudioStream" uid="uid://d3v8u25xskc3a" path="res://puzzle-framework/game/sfx/error.ogg" id="11_5wjym"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2mhl3"]
+shader = ExtResource("7_5wjym")
+
+[node name="Cell" type="Node2D" unique_id=111272638 node_paths=PackedStringArray("sprite_tile", "home", "critter", "area_clickable", "audio_error")]
+script = ExtResource("1_vj45x")
+sprite_tile = NodePath("SpriteTile")
+home = NodePath("Home")
+critter = NodePath("Critter")
+area_clickable = NodePath("AreaClickable")
+audio_error = NodePath("AudioError")
+
+[node name="SpriteTile" type="Sprite2D" parent="." unique_id=740739377]
+texture = ExtResource("2_i6nvy")
+hframes = 2
+
+[node name="Home" type="Node2D" parent="." unique_id=858902461 node_paths=PackedStringArray("sprite_shadow", "sprite_base", "critter")]
+script = ExtResource("3_bkkib")
+sprite_shadow = NodePath("SpriteShadow")
+sprite_base = NodePath("SpriteBase")
+critter = NodePath("Critter")
+
+[node name="SpriteShadow" type="Sprite2D" parent="Home" unique_id=199403277]
+modulate = Color(1, 1, 1, 0.23921569)
+position = Vector2(0, 8)
+texture = ExtResource("4_l28qi")
+
+[node name="SpriteBase" type="Sprite2D" parent="Home" unique_id=1112342545]
+position = Vector2(0, -13)
+texture = ExtResource("5_ts5mw")
+
+[node name="Critter" type="Node2D" parent="Home" unique_id=1499336686 node_paths=PackedStringArray("sprite")]
+position = Vector2(0, 1)
+scale = Vector2(0.25, 0.25)
+script = ExtResource("6_ts5mw")
+sprite = NodePath("Sprite")
+
+[node name="Sprite" type="Sprite2D" parent="Home/Critter" unique_id=1389172154]
+texture_filter = 6
+material = SubResource("ShaderMaterial_2mhl3")
+position = Vector2(0, -108)
+texture = ExtResource("8_a3ay5")
+hframes = 4
+vframes = 6
+
+[node name="Critter" parent="." unique_id=1266229666 instance=ExtResource("6_5wjym")]
+visible = false
+position = Vector2(0, 14)
+
+[node name="SpriteShadow" type="Sprite2D" parent="Critter" unique_id=813324407]
+modulate = Color(1, 1, 1, 0.23921569)
+show_behind_parent = true
+position = Vector2(0, -16)
+scale = Vector2(0.78125, 0.78125)
+texture = ExtResource("4_l28qi")
+
+[node name="AreaClickable" parent="." unique_id=1800888092 node_paths=PackedStringArray("target") instance=ExtResource("7_i6nvy")]
+target = NodePath("..")
+size = Vector2(256, 256)
+
+[node name="AudioError" type="AudioStreamPlayer2D" parent="." unique_id=1151597295]
+stream = ExtResource("11_5wjym")
+max_distance = 5000.0

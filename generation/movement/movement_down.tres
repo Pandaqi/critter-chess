@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="MovementResource" format=3 uid="uid://rsjb2t6u3lsa"]
+
+[ext_resource type="Script" uid="uid://qh7bpew8tgis" path="res://generation/movement/movement_resource.gd" id="1_3yxin"]
+
+[resource]
+script = ExtResource("1_3yxin")
+directions = Array[int]([3])
+metadata/_custom_type_script = "uid://qh7bpew8tgis"

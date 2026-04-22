@@ -1,5 +1,46 @@
 # Critter Chess
 
+# To-Do
+
+## Puzzle Generation/Play
+
+
+## Animals / Movement
+
+* Diagonals
+* ALL DIRECTIONS (All directions only one step?)
+* Jumpers ---> should be all flying animals right?
+* Knight movement
+* Something even more wonky? ("Teleport to edge of map? Go one way then another?")
+  * There's a setting that will introduce random animals with unexplained movements. You have to _figure out_ how they move if you want to solve the puzzle well.
+
+
+
+## Visuals
+
+* Pieces more lively
+* Appear/disappear
+* Fake move tween on executing turn
+* Dotted rectangles on possible squares? Glow? Flowers around edges? Some other more subtle effect to indicate this?
+
+
+
+
+## PuzzleFramework (THIS IS LATEST VERSION NOW)
+
+
+* Allow setting the _scale_ of the `give_feedback` node (and other UI elements??)
+* SOME WAY TO TRACK/SAVE PROGRESS? Like "how far did the player get?" or "what's the highest difficulty they solved?" or "how long does it take them on average to solve these puzzles (in terms of time/turns)?" => At least save settings right?
+
+**@IDEA/@IMPROV: If we ever want to support "campaigns",** I could just save the seed + some crucial detail (like machine starting pos). I can then run a debug tool to just check if that crucial detail is still the same in all generated puzzles, protecting against accidental changes in earlier campaign puzzles.
+
+
+
+
+
+
+## Notes
+
 A bunch of animals. Each one moves in a _unique way_ (inspired by chess but simplified): one moves horizontal, one vertical, one diagonal, one hops, etcetera.
 
 You simply need to get them all to target squares. => Click on one, it highlights your possible squares, click the desired one to move. => NO THIS IS LATER DIFFICULTY LEVEL, EASIEST ONE TELLS YOU WHICH TO MOVE!
@@ -30,17 +71,6 @@ GENERATION ALGORITHM:
   * _Reverse_ the random moves we made -> that is our solution
 
 
-# To-Do
-
-## PuzzleFramework (THIS IS LATEST VERSION NOW)
-
-* Allow setting the _scale_ of the `give_feedback` node (and other UI elements??)
-* Create some reusable module for "react to click + hover on area" as I'm retyping that code again and again now ...
-  * Yes, an `Area2D` that sends these signals, plus a `set_size` function for dynamic resizing of collision shape that I often do (and an `@export` variable to set this from editor manually)
-* SOME WAY TO TRACK/SAVE PROGRESS? Like "how far did the player get?" or "what's the highest difficulty they solved?" or "how long does it take them on average to solve these puzzles (in terms of time/turns)?" => At least save settings right?
-
-**@IDEA/@IMPROV: If we ever want to support "campaigns",** I could just save the seed + some crucial detail (like machine starting pos). I can then run a debug tool to just check if that crucial detail is still the same in all generated puzzles, protecting against accidental changes in earlier campaign puzzles.
-
 
 
 
@@ -51,7 +81,6 @@ GENERATION ALGORITHM:
 CRITTERS: LEFT / RIGHT
 PLAY: Targets specified, turns specified, you just say _where_ the current animal should go.
 
-(The rule of "pieces can't share a space" should probably just be enabled at all times, right?)
 
 ## Easy
 

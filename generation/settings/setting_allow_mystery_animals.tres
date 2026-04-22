@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PuzzleSettingCheckbox" format=3 uid="uid://d2xohtnwrs7qn"]
+
+[ext_resource type="Script" uid="uid://dhfd6mahjlglv" path="res://puzzle-framework/settings/setting_checkbox.gd" id="1_i53uq"]
+
+[resource]
+script = ExtResource("1_i53uq")
+key = "allow_mystery_animals"
+label = "Allow Mystery Animals"
+default = false
+tooltip = "Adds animals whose (odd) movement is not explained; play around and figure them out! "
+metadata/_custom_type_script = "uid://dhfd6mahjlglv"

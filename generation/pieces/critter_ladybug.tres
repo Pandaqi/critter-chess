@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CritterResource" format=3 uid="uid://85ud548yehtj"]
+
+[ext_resource type="Resource" uid="uid://d15fpf58dv07o" path="res://generation/movement/movement_up.tres" id="1_rdxkh"]
+[ext_resource type="Script" uid="uid://crp7jsfwsmnoa" path="res://generation/pieces/critter_resource.gd" id="2_t11oc"]
+
+[resource]
+script = ExtResource("2_t11oc")
+name = "ladybug"
+frame = 3
+movement = ExtResource("1_rdxkh")
+metadata/_custom_type_script = "uid://crp7jsfwsmnoa"

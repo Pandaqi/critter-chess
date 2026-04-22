@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://bqhtxrn1r54m3"]
+
+[ext_resource type="Script" uid="uid://kme3xvun4gc4" path="res://puzzle-framework/puzzle_framework.gd" id="1_57jsw"]
+[ext_resource type="Script" uid="uid://7a03fervi8xj" path="res://puzzle-framework/puzzle_difficulty.gd" id="2_3a4ji"]
+[ext_resource type="Resource" uid="uid://dnb8nvvk2fbtx" path="res://generation/difficulties/diff_easiest.tres" id="3_g61x5"]
+[ext_resource type="Script" uid="uid://xoy87uum5v5s" path="res://puzzle-framework/settings/setting.gd" id="4_uqhpv"]
+[ext_resource type="Resource" uid="uid://b5h75jjc8yjpn" path="res://puzzle-framework/settings/common/setting_fullscreen.tres" id="6_k0h2b"]
+[ext_resource type="Resource" uid="uid://c73mtja0x8ce0" path="res://puzzle-framework/settings/common/setting_tutorial.tres" id="7_w5xje"]
+[ext_resource type="Resource" uid="uid://blt5hmy8kqxw" path="res://puzzle-framework/settings/common/setting_volume_bg.tres" id="8_ftmnh"]
+[ext_resource type="Resource" uid="uid://doyw0pbgpwr17" path="res://puzzle-framework/settings/common/setting_volume_game.tres" id="9_w5ts3"]
+[ext_resource type="Resource" uid="uid://ce0nrt13oqsoa" path="res://puzzle-framework/settings/common/setting_heading.tres" id="10_q4ynd"]
+[ext_resource type="Resource" uid="uid://bpx3va84mb70o" path="res://puzzle-framework/settings/common/setting_volume_ui.tres" id="10_rtetl"]
+[ext_resource type="Resource" uid="uid://bi2meajfq4oj4" path="res://puzzle-framework/settings/common/setting_hints.tres" id="11_ftmnh"]
+[ext_resource type="Resource" uid="uid://ccl0b2xjonk5t" path="res://puzzle-framework/settings/common/setting_voice_type.tres" id="12_w5ts3"]
+[ext_resource type="Resource" uid="uid://3ovucnm0edyj" path="res://generation/settings/setting_heading_controls.tres" id="13_k0h2b"]
+[ext_resource type="Resource" uid="uid://cryvpmwnyrrem" path="res://generation/settings/setting_highlight_moves.tres" id="14_w5xje"]
+[ext_resource type="Resource" uid="uid://db5arb4tksbh2" path="res://generation/settings/setting_player_selects_piece.tres" id="15_ftmnh"]
+[ext_resource type="Resource" uid="uid://d2xohtnwrs7qn" path="res://generation/settings/setting_allow_mystery_animals.tres" id="16_w5xje"]
+
+[node name="PuzzleFramework" type="Node" unique_id=835186744]
+script = ExtResource("1_57jsw")
+game_name = "Critter Chess"
+game_version = "1.2.8"
+game_tagline = "Teaches Directions, Spatial Awareness & Forest Animals"
+favicon = "main/critter-chess-favicon.png"
+menu_pattern_enabled = true
+difficulties = Array[ExtResource("2_3a4ji")]([ExtResource("3_g61x5")])
+settings = Array[ExtResource("4_uqhpv")]([ExtResource("10_q4ynd"), ExtResource("6_k0h2b"), ExtResource("11_ftmnh"), ExtResource("7_w5xje"), ExtResource("12_w5ts3"), ExtResource("8_ftmnh"), ExtResource("9_w5ts3"), ExtResource("10_rtetl"), ExtResource("13_k0h2b"), ExtResource("14_w5xje"), ExtResource("15_ftmnh"), ExtResource("16_w5xje")])
