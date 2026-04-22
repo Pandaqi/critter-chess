@@ -5,24 +5,43 @@
 ## Puzzle Generation/Play
 
 
-## Animals / Movement
 
-* Diagonals
-* ALL DIRECTIONS (All directions only one step?)
-* Jumpers ---> should be all flying animals right?
-* Knight movement
-* Something even more wonky? ("Teleport to edge of map? Go one way then another?")
-  * There's a setting that will introduce random animals with unexplained movements. You have to _figure out_ how they move if you want to solve the puzzle well.
 
 
 
 ## Visuals
 
+* Show the ANIMAL ORDER + HIGHLIGHT CURRENT ONE.
+  * If player picks the animal, these sprites just switch to general flowers or something to indicate turns?
+  * Have a **setting** to make a "max turns" optional?
+  * Also turn **allow anonymous homes** into a setting? (It actually makes the puzzle much easier I've seen ... Does have the nice bonus of not needing to see the TYPE of the home ever when obscured)
+* Show ALL arrows for where a piece can move
+* Find solution for **not being able to see home type below animal**
+  * Is there a way to also **add collectibles to homes**? Because our algorithm prefers putting other pieces on your homes, and if we can place collectibles then we actually have a good _reason_ to go there!
+  * **THIS IS OUR BIGGEST PROBLEM RIGHT NOW**
+  * **At the very least, HIGHLIGHT all possible homes when a piece of that type is selected!**
+    * I probably want to use the four corners. Show the type on all four. Show type on 2, direction on 2, if there's also a collectible there.
+    * Otherwise we can put a very obvious circle/panel in _front_ of the square (at the bottom) showing the type and stuff.
+    * _Just try both, maybe even allow people to set this themselves_.
 * Pieces more lively
 * Appear/disappear
 * Fake move tween on executing turn
+  * If the move is a STRAIGHT LINE, make the pieces "hop" to their target _one space at a time_!
 * Dotted rectangles on possible squares? Glow? Flowers around edges? Some other more subtle effect to indicate this?
+* Several different forest backgrounds?
+* If we _do_ keep homes around after completing them, then it should clearly change the visual of home + pawn to indicate "this one is in the right place!"
+  * Change the tile below to a third type?
+  * Do a little happy hop?
+* FIX: Reset/refresh piece + target selection UI if you UNDO while in the midst of that.
+* CREATE FINAL MYSTERY ANIMALS + ADD A LITTLE BOOKLET WITH HOW ALL THE "MYSTERY ANIMALS" MOVE!
+* React to player HOVER. (Make critter transparent to show what's on the cell beneath them??)
+* QOL: Keep the same piece selected as your last move (by default; can turn this off)?
+* TWEAK: Maybe lower collectible probability on Medium difficulty? SHOULD it have collectibles?
 
+## Finishing
+
+* Audio narration of direction you moved in
+* Tutorial => Images + VoiceOver
 
 
 
@@ -56,19 +75,63 @@ The game contains 5 difficulty levels, though, and higher difficulties ...
 * (Similarly, make the targets "generic": you must figure out yourself WHO should end up there.)
 * (Maybe we can also have "intermediate" targets for pieces to pick up?)
 
-@IDEA: When animating, make the pieces "hop" to their target _one space at a time_!
 
 
 
-GENERATION ALGORITHM:
 
-* Just place pieces at random spaces -> save these as their **targets**.
-* Pick random moves.
-  * Prefer spaces where another piece was before. (With some probability, not 100%)
-  * Forbid moving the same piece twice in a row along the same axis. (It's fine if they move twice, but go in a different direction the second time.)
-  * (With some probability, prefer _longer_ distances to travel?)
-* Wherever pieces end up is their **starting position**. 
-  * _Reverse_ the random moves we made -> that is our solution
+# Animals
+
+## Easiest
+
+[x] RACCOON = Right
+[x] FOX = Left
+[x] BEAR = Up
+[x] DEER = Down
+
+## Medium/Hard?
+
+[x] SQUIRREL = Diagonal Up
+[x] HEDGEHOG = Diagonal Down
+[x] CAT = Diagonal Both
+[x] BEAVER = Orthogonal All
+[x] GOAT = All directions
+
+## What to do with these?
+
+BUNNY
+DONKEY
+
+LADYBUG
+FROG
+BUTTERFLY
+BIRD
+
+OWL_ALT
+BUNNY_ALT
+
+
+
+IDEAS:
+
+* Teleport to edge of map? 
+* Go one way then another? LEFT LEFT UP UP ===> Wait a minute, reversing a sequence will just always end up at the same tile :p
+* "Can only move if there's someone/noone in same row/column" (or the inverse: can NOT move if row/column shared)
+* Can only move if starts/ends next to my own type ===> force placement in pairs
+* Can't go backwards + ??
+* If at the end of the map, only allowed to go _into_ the map (not _along_ the edge)
+
+
+## Mystery Animals
+
+[x] HORSE ---> Moves like knight in chess
+
+[x] SNAIL ---> All; can't jump
+[x] OWL ---> Diagonal; Can jump over MULTIPLE pieces (4 atm)
+[x] FROG ---> Orthogonal; MUST jump over another piece
+[x] WHALE ---> Orthogonal; MUST move at least 2 spaces
+[x] MOUSE ---> Diagonal; Does not want to move at all if another piece is adjacent to them
+[x] CHICK ---> All; can move AT MOST 2 spaces
+
 
 
 
@@ -78,26 +141,69 @@ GENERATION ALGORITHM:
 
 ## Easiest
 
-CRITTERS: LEFT / RIGHT
-PLAY: Targets specified, turns specified, you just say _where_ the current animal should go.
+CRITTERS: 
+Raccoon, Fox, Bear, Deer
+
+RULES:
+pieces_go_as_far_as_they_can = false
+pieces_can_go_backward = false
+pieces_can_jump = false
+allow_anonymous_homes = false
+place_collectibles = false
 
 
 ## Easy
 
-CRITTERS: UP / DOWN
-PLAY: Targets specified, turns specified, you just say _where_ the current animal should go.
+CRITTERS: 
+Raccoon, Fox, Bear, Deer
+
+RULES:
+pieces_go_as_far_as_they_can = true
+pieces_can_go_backward = false
+pieces_can_jump = false
+allow_anonymous_homes = false
+place_collectibles = false
+
 
 ## Medium
 
-CRITTERS: DIAGONAL
-PLAY: Turns specified, you just say _where_ the current animal should go.
+CRITTERS: 
+Raccoon, Fox, Bear, Deer
+Squirrel, Hedgehog,
+
+RULES:
+pieces_go_as_far_as_they_can = true
+pieces_can_go_backward = true
+pieces_can_jump = false
+allow_anonymous_homes = false
+place_collectibles = false
+
 
 ## Hard
 
-CRITTERS: ANY ONE STEP / KNIGHT MOVEMENT
-PLAY: Targets and turns up to you
+CRITTERS:
+Raccoon, Fox, Bear, Deer
+Squirrel, Hedgehog, 
+Cat, Beaver, Goat
+
+RULES:
+pieces_go_as_far_as_they_can = true
+pieces_can_go_backward = true
+pieces_can_jump = false
+allow_anonymous_homes = false
+place_collectibles = true
+
 
 ## Hardest
 
-CRITTERS: Something even funkier?
-PLAY: ??
+CRITTERS:
+Raccoon, Fox, Bear, Deer
+Squirrel, Hedgehog, Cat, Beaver, Goat
+Horse (Knight)
+
+RULES:
+pieces_go_as_far_as_they_can = true
+pieces_can_go_backward = true
+pieces_can_jump = true
+allow_anonymous_homes = true
+place_collectibles = true

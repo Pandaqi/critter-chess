@@ -19,6 +19,11 @@ func do(cmds:PuzzleCommands) -> bool:
 	
 	if cmds.generating: return true
 	
+	if cell_to.has_collectible():
+		var dir := PuzzleGrid.get_dir_between(cell_from, cell_to)
+		if cell_to.collectible_matches(dir):
+			await cmds.execute_command(CommandCollect.new(cell_to))
+	
 	if cell_to.is_home_for(piece.type) and cmds.visualizer.generator.remove_home_upon_completion:
 		await cmds.execute_command(CommandHome.new(piece, cell_to))
 

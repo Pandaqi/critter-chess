@@ -5,27 +5,31 @@ class_name PuzzleGenerator
 var grid_width_bounds := Vector2i(3,5)
 var grid_height_bounds := Vector2i(3,5)
 
-var pieces_allowed : Array[CritterData.Type] = []
-var pieces_required : Array[CritterData.Type] = [CritterData.Type.GOAT, CritterData.Type.FOX, CritterData.Type.OWL, CritterData.Type.LADYBUG]
+var pieces_allowed : Array[String] = []
+var pieces_required : Array[String] = []
 
-var num_pieces_bounds := Vector2i(4,4)
-var num_turns_bounds := Vector2i(6,8)
+var num_pieces_bounds := Vector2(0.3, 0.45) # ratio of total number of cells
+var num_turns_bounds := Vector2(1.5, 3.0) # ratio of number of pieces
 
 var pieces_go_as_far_as_they_can := false
 var pieces_can_go_backward := false
-var pieces_can_start_on_homes := true
-var pieces_with_home_percentage := 0.75
+var pieces_can_jump := false
 
-var remove_home_upon_completion := true
-var allow_mystery_animals := false
+var allow_anonymous_homes := false
 
+var place_collectibles := false
 var forbid_backtracking := true
-var forbid_shuffling := true
 
 #endregion
 
 #region FixedProperties
 
+var remove_home_upon_completion := false
+var pieces_can_start_on_homes := true
+var pieces_with_home_percentage := Vector2(0.85, 1.0)
+var collectible_ratio := Vector2(0.75, 0.95)
+
+var forbid_shuffling := true
 
 #endregion
 
@@ -33,6 +37,9 @@ var grid : PuzzleGrid
 var pieces : Array[CritterData]
 var homes : Array[CellData]
 var solution : Array[CommandMove]
+
+var min_turns_required : int
+var max_turns_allowed : int
 
 #region CoreAlgorithm
 
@@ -55,24 +62,35 @@ func create_map() -> void:
 	
 	grid = PuzzleGrid.new()
 	grid.creation_callback = func(pos:Vector2i): return CellData.new(pos)
+	grid.neighbor_mode = PuzzleGrid.NeighborMode.ALL
 	grid.create(grid_size)
 	
 	var cells := get_all_cells()
 	cells.shuffle()
 	
 	# place pieces randomly
-	var num_pieces := randi_range(num_pieces_bounds.x, num_pieces_bounds.y)
+	# @NOTE: This is a stupid hack needed to convert string to enum because Godot can't do enum arrays in the inspector (when I'm setting up these values for the different difficulties), so I just input pieces by STRING and convert that back to the INT behind the scenes
+	var pieces_allowed_types : Array[CritterData.Type] = [] 
+	pieces_allowed_types.assign( pieces_allowed.map(func(string:String): return CritterData.convert_string_to_type(string)) )
+	
+	var pieces_required_types : Array[CritterData.Type] = []
+	pieces_required_types.assign( pieces_required.map(func(string:String): return CritterData.convert_string_to_type(string)) )
+	
+	var total_num_cells := grid.cells.size()
+	var num_pieces := roundi(randf_range(num_pieces_bounds.x, num_pieces_bounds.y) * total_num_cells)
+
 	var piece_types : Array[CritterData.Type] = []
-	piece_types += pieces_required
+	piece_types += pieces_required_types
+	piece_types.shuffle()
 	
-	if allow_mystery_animals:
-		pieces_allowed += CritterData.get_mystery_types()
+	if PuzzleSettings.get_value("allow_mystery_animals"):
+		pieces_allowed_types += CritterData.get_mystery_types()
 	
-	if pieces_allowed.size() <= 0: 
-		pieces_allowed = pieces_required
+	if pieces_allowed_types.size() <= 0: 
+		pieces_allowed_types = pieces_required_types
 	
 	while piece_types.size() < num_pieces:
-		piece_types.append(pieces_allowed.pick_random())
+		piece_types.append(pieces_allowed_types.pick_random())
 	
 	pieces = []
 	for i in range(num_pieces):
@@ -84,9 +102,14 @@ func create_map() -> void:
 		rand_cell.mark_as_start_for(piece)
 
 func take_turns() -> void:
-	var num_turns := randi_range(num_turns_bounds.x, num_turns_bounds.y)
+	min_turns_required = floori(num_turns_bounds.x * count_pieces())
+	max_turns_allowed = ceili(num_turns_bounds.y * count_pieces())
+	
+	var num_turns := randi_range(min_turns_required, max_turns_allowed)
+	
 	solution = []
 	
+	# take random turns until we're satisfied
 	var commands := PuzzleCommands.new()
 	while solution.size() < num_turns:
 		var possible_moves : Array[CommandMove] = []
@@ -100,7 +123,16 @@ func take_turns() -> void:
 		commands.execute_command(move_picked)
 		solution.append(move_picked)
 	
-	var num_homes := roundi(pieces_with_home_percentage * pieces.size())
+	# turn the final cells of pieces into their assigned homes
+	generate_homes()
+
+	# place collectibles in empty spaces along the way (if needed)
+	generate_collectibles()
+
+func generate_homes() -> void:
+	var num_homes := roundi(randf_range(pieces_with_home_percentage.x, pieces_with_home_percentage.y) * pieces.size())
+	if allow_anonymous_homes: num_homes = pieces.size()
+	
 	var pieces_with_home := pieces.duplicate(false)
 	pieces_with_home.shuffle()
 	pieces_with_home = pieces_with_home.slice(0, num_homes)
@@ -109,17 +141,44 @@ func take_turns() -> void:
 	for piece in pieces_with_home:
 		piece.get_cell().mark_as_home_for(piece.type)
 		homes.append(piece.get_cell())
+	
+
+func generate_collectibles() -> void:
+	if not place_collectibles: return
+	
+	# turn any unused cells into collectibles
+	var possible_collectible_dirs : Dictionary[CellData, Array] = {}
+	for piece in pieces:
+		for i in range(1, piece.path.size()):
+			var cell_from := piece.path[i-1]
+			var cell_to := piece.path[i]
+			if not cell_to.can_receive_collectible(): continue
+			if not (cell_to in possible_collectible_dirs): possible_collectible_dirs[cell_to] = []
+			var dir := PuzzleGrid.get_dir_between(cell_from, cell_to)
+			if dir == PuzzleGrid.Direction.NONE: continue
+			possible_collectible_dirs[cell_to].append(dir)
+	
+	var possible_collectible_cells := possible_collectible_dirs.keys()
+	possible_collectible_cells.shuffle()
+	var num_options = possible_collectible_cells.size()
+	if num_options <= 0: return
+	
+	var num_collectibles := roundi(randf_range(collectible_ratio.x, collectible_ratio.y) * num_options) 
+	for i in range(num_collectibles):
+		var cell : CellData = possible_collectible_cells.pop_back()
+		var dir : PuzzleGrid.Direction = possible_collectible_dirs[cell].pick_random()
+		cell.add_collectible(dir)
 
 func clean_up(desperate := false) -> bool:
 	# required checks; if not passed the puzzle is always illegal and discarded
-	if solution.size() < num_turns_bounds.x:
+	if solution.size() < min_turns_required:
 		print("PuzzleGenerator | Attempt Discarded | Too few turns.")
 		return false
 	
 	for piece in pieces:
 		var start_cell := piece.get_start_cell()
 		if not start_cell.is_home(): continue
-		if not pieces_can_start_on_homes:
+		if (not pieces_can_start_on_homes) or allow_anonymous_homes:
 			print("PuzzleGenerator | Piece starts on home while the configuration disallows this")
 			return false
 		
@@ -129,7 +188,7 @@ func clean_up(desperate := false) -> bool:
 	
 	# nice-to-have checks that are turned off if we're struggling to find a puzzle
 	if not desperate:
-		var min_moves_wanted := floori(0.5 * solution.size() / float(pieces.size()))
+		var min_moves_wanted := floori(min_turns_required / float(pieces.size()))
 		var min_distance_wanted := floori(0.33 * grid.size.x)
 		for piece in pieces:
 			var moved_too_little := piece.path.size() < min_moves_wanted
@@ -210,13 +269,23 @@ func all_pieces_are_home() -> bool:
 func get_homes_filled() -> Array[CellData]:
 	return homes.filter(func(h:CellData): 
 		if remove_home_upon_completion and (not h.is_home()): return true
-		return h.has_piece() and h.is_home_for(h.piece.type)
+		if not h.has_piece(): return false
+		if allow_anonymous_homes: return true
+		return h.is_home_for(h.piece.type)
 	)
 
 func all_homes_are_filled() -> bool:
 	return get_homes_filled().size() >= homes.size()
 
+func no_collectibles_left() -> bool:
+	for cell in get_all_cells():
+		if cell.has_collectible(): return false
+	return true
+
 func is_in_winning_state() -> bool:
-	return all_homes_are_filled()
+	return all_homes_are_filled() and no_collectibles_left()
+
+func count_pieces() -> int:
+	return pieces.size()
 
 #endregion

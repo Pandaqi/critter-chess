@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CritterResource" format=3 uid="uid://vtodysw588yk"]
+
+[ext_resource type="Script" uid="uid://crp7jsfwsmnoa" path="res://generation/pieces/critter_resource.gd" id="1_5lgcd"]
+[ext_resource type="Resource" uid="uid://dm0bam7qgst6q" path="res://generation/movement/movement_forced_jump.tres" id="1_48bu3"]
+
+[resource]
+script = ExtResource("1_5lgcd")
+name = "frog"
+frame = 12
+movement = ExtResource("1_48bu3")
+metadata/_custom_type_script = "uid://crp7jsfwsmnoa"

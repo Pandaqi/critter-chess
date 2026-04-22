@@ -182,3 +182,33 @@ Earlier on, I mentioned how I wanted the switch from "all animals move only one 
   * In fact, we can add a variety of animals with wonky movement patterns you need to figure out yourself.
   * I realized this is actually a fun puzzle to play too. I have this clean code pattern now that allows me to easily code _any_ type of movement. So why not create a handful of pieces that do something weird with directions, and let kids/players test it and _figure out_ how they move?
   * But as always, it's not for everyone, so this is a setting to turn on.
+
+## Does That Work?
+
+Yes and no. The game _works_ now (functionally), from start to finish, with a nice difficulty curve and variety of pieces. After tweaking the generation numbers (e.g. size of board, number of pieces depending on board size, etcetera) for a bit, I was able to consistently get puzzles where animals block each other at least a few times and it feels like a fine puzzle.
+
+But the higher difficulties retain the problem of "animals make random moves before finally going home". That's the unfortunate side effect of this puzzle where the _only_ objective is to get animals home---and it doesn't matter how you get there. It doesn't matter if the generation algorithm made the Fox move to 5 other spaces first before going home. A player will see the fox can go home in just one move and wonder why they had so many turns for this obvious puzzle :p
+
+There are two solutions to this,
+
+* Write some really clever twists into the algorithm to detect useless detours and cut them / prevent them.
+* Turn this bug into a feature by placing stuff to visit/collect along the way.
+
+As expected, we're going to do the second thing because it's less work and more interesting :p We're basically going to pretend those detours actually have a function.
+
+Almost by default, without thinking, I placed generic "stars" on spaces that were visited (but not a final home). This works fine, but because any animal can pick up the star, puzzles are either too easy (stars don't really matter) or too hard (completely overwhelming because you have no clue which of the 10 pieces should pick up that star). It's also generic and we can do better.
+
+I added a _direction_ to the star. You only pick it up if you _approach it from that direction_. This ties into the core theme of the game and the core skill it's teaching. It also makes the stars more consistently useful: puzzles become easier sometimes (you know you HAVE to visit that star with something), but also harder at other times (you have to visit it IN THE RIGHT WAY).
+
+This is only introduced later, when the puzzles actually need it for some extra complexity. It does the job quite well. Of course, there are still some shuffles from pieces that don't need to be there, but they're much rarer and they don't get in the way of having some fun solving a puzzle.
+
+## The Biggest Problem (That Remains)
+
+It's a silly problem, but it's also the most important one: **When a piece stands on a home (or star/collectible), it obscures the type of it.** In other words, when a Fox is standing on a tree stump home ... you can't see the actual icon on that tree. So unless you memorize it, or move the Fox out of the way, you _don't know_ who is supposed to go there!
+
+That's just annoying and definitely needs a good fix. I wanted to find something that _also_ allowed placing collectibles on home squares, because that would give the algorithm way more options too. (Remember that the algorithm prefers moving pieces to spaces that other pieces have been before. As such, many pieces will pass by a home of someone else before getting to their own home. If we can place a collectible on those homes, it would give those movements more meaning.)
+
+@TODO
+
+
+

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CritterResource" format=3 uid="uid://cqcpilo4gfnvl"]
+
+[ext_resource type="Resource" uid="uid://cwpuviu1r58u3" path="res://generation/movement/movement_right.tres" id="1_kr0ag"]
+[ext_resource type="Script" uid="uid://crp7jsfwsmnoa" path="res://generation/pieces/critter_resource.gd" id="1_l3fd8"]
+
+[resource]
+script = ExtResource("1_l3fd8")
+name = "raccoon"
+frame = 14
+movement = ExtResource("1_kr0ag")
+metadata/_custom_type_script = "uid://crp7jsfwsmnoa"

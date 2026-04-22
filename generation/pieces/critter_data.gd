@@ -7,19 +7,51 @@ enum Type
 	GOAT,
 	FOX,
 	OWL,
-	LADYBUG
+	LADYBUG,
+	BUNNY,
+	SNAIL,
+	HORSE,
+	SQUIRREL,
+	BEAR,
+	HEDGEHOG,
+	MOUSE,
+	DEER,
+	FROG,
+	DONKEY,
+	RACCOON,
+	BEAVER,
+	BUTTERFLY,
+	WHALE,
+	BIRD,
+	CAT,
+	OWL_ALT,
+	BUNNY_ALT,
+	CHICK
 }
 
 var type : CritterData.Type
 var cell : CellData
 var path : Array[CellData]
 
-# @TODO: a better place to put this? Static var? Global autoload?
+# @TODO: a better place to put this? Global autoload?
 static var type_library : Dictionary[CritterData.Type, CritterResource] = {
-	CritterData.Type.GOAT: preload("res://generation/pieces/critter_goat.tres"),
-	CritterData.Type.FOX: preload("res://generation/pieces/critter_fox.tres"),
-	CritterData.Type.OWL: preload("res://generation/pieces/critter_owl.tres"),
-	CritterData.Type.LADYBUG: preload("res://generation/pieces/critter_ladybug.tres")
+	CritterData.Type.GOAT: load("res://generation/pieces/critter_goat.tres"),
+	CritterData.Type.FOX: load("res://generation/pieces/critter_fox.tres"),
+	CritterData.Type.OWL: load("res://generation/pieces/critter_owl.tres"),
+	CritterData.Type.LADYBUG: load("res://generation/pieces/critter_ladybug.tres"),
+	CritterData.Type.BEAR: load("res://generation/pieces/critter_bear.tres"),
+	CritterData.Type.CAT: load("res://generation/pieces/critter_cat.tres"),
+	CritterData.Type.DEER: load("res://generation/pieces/critter_deer.tres"),
+	CritterData.Type.HEDGEHOG: load("res://generation/pieces/critter_hedgehog.tres"),
+	CritterData.Type.RACCOON: load("res://generation/pieces/critter_raccoon.tres"),
+	CritterData.Type.SQUIRREL: load("res://generation/pieces/critter_squirrel.tres"),
+	CritterData.Type.BEAVER: load("res://generation/pieces/critter_beaver.tres"),
+	CritterData.Type.FROG: load("res://generation/pieces/critter_frog.tres"),
+	CritterData.Type.MOUSE: load("res://generation/pieces/critter_mouse.tres"),
+	CritterData.Type.SNAIL: load("res://generation/pieces/critter_snail.tres"),
+	CritterData.Type.WHALE: load("res://generation/pieces/critter_whale.tres"),
+	CritterData.Type.CHICK: load("res://generation/pieces/critter_chick.tres"),
+	CritterData.Type.HORSE: load("res://generation/pieces/critter_horse.tres"),
 }
 
 signal changed()
@@ -73,11 +105,19 @@ func get_path_from_end(idx_off:int) -> CellData:
 
 #region Type/Movement Modules
 
+static func convert_string_to_type(string:String) -> CritterData.Type:
+	var type_keys := CritterData.Type.keys()
+	return type_keys.find(string.to_upper()) as CritterData.Type
+
+static func convert_type_to_string(tp:CritterData.Type) -> String:
+	var type_keys := CritterData.Type.keys()
+	return type_keys[tp]
+
 static func get_mystery_types() -> Array[CritterData.Type]:
 	var arr : Array[CritterData.Type] = []
-	for type in type_library:
-		if not get_type_resource_for(type).movement.mystery: continue
-		arr.append(type)
+	for type_key in type_library:
+		if not get_type_resource_for(type_key).movement.mystery: continue
+		arr.append(type_key)
 	return arr
 
 static func get_type_resource_for(tp:Type) -> CritterResource:

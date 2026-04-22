@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CritterResource" format=3 uid="uid://dnmwmlo13kalt"]
+
+[ext_resource type="Resource" uid="uid://bfd07mk5m5x7m" path="res://generation/movement/movement_slow.tres" id="1_ap53i"]
+[ext_resource type="Script" uid="uid://crp7jsfwsmnoa" path="res://generation/pieces/critter_resource.gd" id="1_l1imm"]
+
+[resource]
+script = ExtResource("1_l1imm")
+name = "snail"
+frame = 5
+movement = ExtResource("1_ap53i")
+metadata/_custom_type_script = "uid://crp7jsfwsmnoa"

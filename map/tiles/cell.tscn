@@ -10,16 +10,20 @@
 [ext_resource type="Shader" uid="uid://dbsyeej8soqua" path="res://map/critters/critter_base_shader.gdshader" id="7_5wjym"]
 [ext_resource type="PackedScene" uid="uid://bbb7i7psjnfym" path="res://puzzle-framework/ui/interaction/area_clickable.tscn" id="7_i6nvy"]
 [ext_resource type="Texture2D" uid="uid://7c85b4wefmd2" path="res://map/critters/animals-spritesheet.png" id="8_a3ay5"]
+[ext_resource type="Script" uid="uid://deqgnpqsowd84" path="res://map/tiles/collectibles/collectible.gd" id="9_f70bn"]
+[ext_resource type="Texture2D" uid="uid://b55ta05x4v2b1" path="res://map/misc/wooden-arrow.png" id="10_f70bn"]
+[ext_resource type="Texture2D" uid="uid://boiwykj0fphea" path="res://map/misc/gem-big.png" id="10_noco8"]
 [ext_resource type="AudioStream" uid="uid://d3v8u25xskc3a" path="res://puzzle-framework/game/sfx/error.ogg" id="11_5wjym"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2mhl3"]
 shader = ExtResource("7_5wjym")
 
-[node name="Cell" type="Node2D" unique_id=111272638 node_paths=PackedStringArray("sprite_tile", "home", "critter", "area_clickable", "audio_error")]
+[node name="Cell" type="Node2D" unique_id=111272638 node_paths=PackedStringArray("sprite_tile", "home", "critter", "collectible", "area_clickable", "audio_error")]
 script = ExtResource("1_vj45x")
 sprite_tile = NodePath("SpriteTile")
 home = NodePath("Home")
 critter = NodePath("Critter")
+collectible = NodePath("Collectible")
 area_clickable = NodePath("AreaClickable")
 audio_error = NodePath("AudioError")
 
@@ -28,6 +32,7 @@ texture = ExtResource("2_i6nvy")
 hframes = 2
 
 [node name="Home" type="Node2D" parent="." unique_id=858902461 node_paths=PackedStringArray("sprite_shadow", "sprite_base", "critter")]
+position = Vector2(0, 10)
 script = ExtResource("3_bkkib")
 sprite_shadow = NodePath("SpriteShadow")
 sprite_base = NodePath("SpriteBase")
@@ -56,15 +61,29 @@ texture = ExtResource("8_a3ay5")
 hframes = 4
 vframes = 6
 
+[node name="Collectible" type="Node2D" parent="." unique_id=961916975 node_paths=PackedStringArray("sprite_arrow")]
+script = ExtResource("9_f70bn")
+sprite_arrow = NodePath("SpriteArrow")
+
+[node name="SpriteBackground" type="Sprite2D" parent="Collectible" unique_id=507585615]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("10_noco8")
+
+[node name="SpriteArrow" type="Sprite2D" parent="Collectible" unique_id=1594527103]
+texture_filter = 6
+position = Vector2(1, -12)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("10_f70bn")
+
 [node name="Critter" parent="." unique_id=1266229666 instance=ExtResource("6_5wjym")]
 visible = false
 position = Vector2(0, 14)
 
 [node name="SpriteShadow" type="Sprite2D" parent="Critter" unique_id=813324407]
-modulate = Color(1, 1, 1, 0.23921569)
+modulate = Color(1, 1, 1, 0.24313726)
 show_behind_parent = true
 position = Vector2(0, -16)
-scale = Vector2(0.78125, 0.78125)
+scale = Vector2(0.8515625, 0.78125)
 texture = ExtResource("4_l28qi")
 
 [node name="AreaClickable" parent="." unique_id=1800888092 node_paths=PackedStringArray("target") instance=ExtResource("7_i6nvy")]

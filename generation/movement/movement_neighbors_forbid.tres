@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="MovementResourceNeighbors" format=3 uid="uid://cimmhm7uv3gwq"]
+
+[ext_resource type="Script" uid="uid://es160gjfu8dc" path="res://generation/movement/movement_resource_neighbors.gd" id="1_712a7"]
+
+[resource]
+script = ExtResource("1_712a7")
+directions = Array[int]([2, 4, 6, 8])
+mystery = true
+metadata/_custom_type_script = "uid://es160gjfu8dc"

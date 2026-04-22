@@ -2,11 +2,13 @@
 
 [ext_resource type="Script" uid="uid://c136i80g3nyah" path="res://map/critters/critter.gd" id="1_rivfp"]
 [ext_resource type="Texture2D" uid="uid://7c85b4wefmd2" path="res://map/critters/animals-spritesheet.png" id="2_dfxgs"]
+[ext_resource type="Texture2D" uid="uid://b55ta05x4v2b1" path="res://map/misc/wooden-arrow.png" id="3_67lfs"]
 [ext_resource type="Script" uid="uid://ck6nrpdiy8vqf" path="res://puzzle-framework/effects/squasher_stretcher.gd" id="3_dfxgs"]
 
-[node name="Critter" type="Node2D" unique_id=1499336686 node_paths=PackedStringArray("sprite")]
+[node name="Critter" type="Node2D" unique_id=1499336686 node_paths=PackedStringArray("sprite", "arrow")]
 script = ExtResource("1_rivfp")
 sprite = NodePath("Visuals/Sprite")
+arrow = NodePath("Visuals/Arrow")
 
 [node name="Visuals" type="Node2D" parent="." unique_id=1152919689]
 
@@ -16,6 +18,15 @@ position = Vector2(0, -108)
 texture = ExtResource("2_dfxgs")
 hframes = 4
 vframes = 6
+
+[node name="Arrow" type="Node2D" parent="Visuals" unique_id=1369130187]
+position = Vector2(0, -1)
+
+[node name="SpriteArrow" type="Sprite2D" parent="Visuals/Arrow" unique_id=1115891905]
+texture_filter = 6
+position = Vector2(6, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_67lfs")
 
 [node name="SquasherStretcher" type="Node2D" parent="." unique_id=283642247 node_paths=PackedStringArray("node")]
 script = ExtResource("3_dfxgs")

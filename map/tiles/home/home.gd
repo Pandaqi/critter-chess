@@ -6,4 +6,6 @@ class_name Home
 @export var critter : Critter
 
 func set_type(tp:CritterData.Type) -> void:
+	if PuzzleSettings.get_difficulty_property("allow_anonymous_homes"): 
+		critter.hide()
 	critter.set_type(tp)

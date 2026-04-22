@@ -78,6 +78,9 @@ static func get_opposite_direction_of(dir:Direction) -> Direction:
 static func get_orthogonal_directions() -> Array[Direction]:
 	return [Direction.RIGHT, Direction.DOWN, Direction.LEFT, Direction.UP]
 
+static func get_diagonal_directions() -> Array[Direction]:
+	return [Direction.BOTTOM_RIGHT, Direction.BOTTOM_LEFT, Direction.TOP_LEFT, Direction.TOP_RIGHT]
+
 static func is_horizontal(dir:Direction) -> bool:
 	return [Direction.RIGHT, Direction.LEFT].has(dir)
 
@@ -98,6 +101,16 @@ static func get_index_from_grid_pos(pos:Vector2i, grid_size:Vector2i) -> int:
 
 static func get_grid_pos_from_index(idx:int, grid_size:Vector2i) -> Vector2i:
 	return Vector2i(floori(idx / grid_size.y), (idx % grid_size.y))
+
+static func get_dir_between(cell_from:CellData, cell_to:CellData) -> Direction:
+	var vec := cell_to.pos - cell_from.pos
+	vec.x = signi(vec.x)
+	vec.y = signi(vec.y)
+	
+	var non_uniform_vector := absi(vec.x) != 0 and absi(vec.y) != 0 and absi(vec.x) != absi(vec.y)
+	if non_uniform_vector: return Direction.NONE
+	
+	return convert_vector_to_direction(vec)
 
 func create(new_size:Vector2i) -> void:
 	size = new_size

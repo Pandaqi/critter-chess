@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CritterResource" format=3 uid="uid://vga2pwvxe20s"]
+
+[ext_resource type="Resource" uid="uid://cimmhm7uv3gwq" path="res://generation/movement/movement_neighbors_forbid.tres" id="1_8b4kd"]
+[ext_resource type="Script" uid="uid://crp7jsfwsmnoa" path="res://generation/pieces/critter_resource.gd" id="1_iajax"]
+
+[resource]
+script = ExtResource("1_iajax")
+name = "mouse"
+frame = 10
+movement = ExtResource("1_8b4kd")
+metadata/_custom_type_script = "uid://crp7jsfwsmnoa"

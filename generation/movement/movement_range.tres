@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MovementResource" format=3 uid="uid://b5kec0wriigyd"]
+
+[ext_resource type="Script" uid="uid://qh7bpew8tgis" path="res://generation/movement/movement_resource.gd" id="1_xfrkk"]
+
+[resource]
+script = ExtResource("1_xfrkk")
+directions = Array[int]([2, 4, 6, 8, 1, 5, 3, 7])
+max_distance = 2
+mystery = true
+metadata/_custom_type_script = "uid://qh7bpew8tgis"

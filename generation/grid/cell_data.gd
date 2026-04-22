@@ -4,6 +4,7 @@ class_name CellData
 var piece : CritterData = null
 var start_for : CritterData
 var home_for := CritterData.Type.NONE
+var collectible_dir := PuzzleGrid.Direction.NONE
 var piece_history : Array[CritterData] = []
 
 #region PiecesInside
@@ -33,6 +34,27 @@ func remove_piece(p:CritterData) -> void:
 
 func count_pieces_in_history() -> int:
 	return piece_history.size()
+
+#endregion
+
+#region Collectibles
+
+func has_collectible() -> bool:
+	return collectible_dir != PuzzleGrid.Direction.NONE
+
+func collectible_matches(dir:PuzzleGrid.Direction) -> bool:
+	return collectible_dir == dir
+
+func add_collectible(cd:PuzzleGrid.Direction) -> void:
+	collectible_dir = cd
+	changed.emit()
+
+func remove_collectible() -> void:
+	collectible_dir = PuzzleGrid.Direction.NONE
+	changed.emit()
+
+func can_receive_collectible() -> bool:
+	return (not is_home()) and (not has_collectible())
 
 #endregion
 

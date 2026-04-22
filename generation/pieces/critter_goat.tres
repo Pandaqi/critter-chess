@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="CritterResource" format=3 uid="uid://cb8mnj12iw31v"]
 
 [ext_resource type="Script" uid="uid://crp7jsfwsmnoa" path="res://generation/pieces/critter_resource.gd" id="1_csq8f"]
-[ext_resource type="Resource" uid="uid://cwpuviu1r58u3" path="res://generation/movement/movement_right.tres" id="1_xjonw"]
+[ext_resource type="Resource" uid="uid://c4d3gcgkn7oyi" path="res://generation/movement/movement_all.tres" id="1_xjonw"]
 
 [resource]
 script = ExtResource("1_csq8f")

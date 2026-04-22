@@ -4,13 +4,15 @@ class_name Cell
 var data : CellData
 
 @export var sprite_tile : Sprite2D
-@export var home : Node2D
+@export var home : Home
 @export var critter : Critter
+@export var collectible : Collectible
 @export var area_clickable : AreaClickable
 
 @export var audio_error : AudioStreamPlayer2D
 
 var unhighlight_color := Color(0.5, 0.4, 0.3)
+var tween_active : Tween
 
 func sync_to_data(cd:CellData) -> void:
 	data = cd
@@ -31,10 +33,16 @@ func _on_data_changed() -> void:
 	if data.has_piece():
 		critter.show()
 		critter.sync_to_data(data.piece)
+	
+	collectible.hide()
+	if data.has_collectible():
+		collectible.show()
+		collectible.set_direction(data.collectible_dir)
 
 func on_error() -> void:
 	PuzzleAudio.play_audio_nice(audio_error)
-	PuzzleTween.play_shake_tween(self)
+	if tween_active and tween_active.is_running(): PuzzleTween.force_tween_completion(tween_active)
+	tween_active = PuzzleTween.play_shake_tween(self)
 
 func set_critter_highlighted(val:bool) -> void:
 	critter.modulate = Color.WHITE if val else unhighlight_color

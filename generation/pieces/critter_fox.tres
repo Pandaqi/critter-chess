@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CritterResource" format=3 uid="uid://cqpeowc40eo4h"]
 
-[ext_resource type="Resource" uid="uid://rsjb2t6u3lsa" path="res://generation/movement/movement_down.tres" id="1_8gtyu"]
+[ext_resource type="Resource" uid="uid://bcewy5qfjbemm" path="res://generation/movement/movement_left.tres" id="1_8gtyu"]
 [ext_resource type="Script" uid="uid://crp7jsfwsmnoa" path="res://generation/pieces/critter_resource.gd" id="2_linhi"]
 
 [resource]

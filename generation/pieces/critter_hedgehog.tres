@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CritterResource" format=3 uid="uid://qob5s51x3jon"]
+
+[ext_resource type="Script" uid="uid://crp7jsfwsmnoa" path="res://generation/pieces/critter_resource.gd" id="1_etu4c"]
+[ext_resource type="Resource" uid="uid://b1nmvypm056i0" path="res://generation/movement/movement_diagonal_down.tres" id="1_v6f20"]
+
+[resource]
+script = ExtResource("1_etu4c")
+name = "hedgehog"
+frame = 9
+movement = ExtResource("1_v6f20")
+metadata/_custom_type_script = "uid://crp7jsfwsmnoa"

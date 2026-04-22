@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CritterResource" format=3 uid="uid://c147u8v23mg24"]
+
+[ext_resource type="Script" uid="uid://crp7jsfwsmnoa" path="res://generation/pieces/critter_resource.gd" id="1_6kc3u"]
+[ext_resource type="Resource" uid="uid://b2ogyxah4mwqh" path="res://generation/movement/movement_diagonal_up.tres" id="1_kds2f"]
+
+[resource]
+script = ExtResource("1_6kc3u")
+name = "squirrel"
+frame = 7
+movement = ExtResource("1_kds2f")
+metadata/_custom_type_script = "uid://crp7jsfwsmnoa"

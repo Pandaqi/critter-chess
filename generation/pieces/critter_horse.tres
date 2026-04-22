@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CritterResource" format=3 uid="uid://cnk5cme0gckeo"]
+
+[ext_resource type="Script" uid="uid://crp7jsfwsmnoa" path="res://generation/pieces/critter_resource.gd" id="1_tr71r"]
+[ext_resource type="Resource" uid="uid://blv6v1jpt0x00" path="res://generation/movement/movement_knight.tres" id="1_uhbex"]
+
+[resource]
+script = ExtResource("1_tr71r")
+name = "horse"
+frame = 6
+movement = ExtResource("1_uhbex")
+metadata/_custom_type_script = "uid://crp7jsfwsmnoa"

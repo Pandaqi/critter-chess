@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="PuzzleDifficulty" format=3 uid="uid://3i7x8v6p5gjc"]
+
+[ext_resource type="Script" uid="uid://7a03fervi8xj" path="res://puzzle-framework/puzzle_difficulty.gd" id="1_g4vc6"]
+[ext_resource type="Script" uid="uid://dbnf0revlghrs" path="res://puzzle-framework/tutorial/puzzle_tutorial_stage.gd" id="2_elbwi"]
+
+[resource]
+script = ExtResource("1_g4vc6")
+difficulty = 2
+properties = Dictionary[String, Variant]({
+"allow_anonymous_homes": false,
+"forbid_backtracking": true,
+"grid_height_bounds": Vector2i(3, 4),
+"grid_width_bounds": Vector2i(4, 5),
+"pieces_allowed": PackedStringArray("raccoon", "fox", "bear", "deer"),
+"pieces_can_go_backward": true,
+"pieces_can_jump": false,
+"pieces_go_as_far_as_they_can": true,
+"pieces_required": PackedStringArray("squirrel", "hedgehog"),
+"place_collectibles": true
+})
+metadata/_custom_type_script = "uid://7a03fervi8xj"
