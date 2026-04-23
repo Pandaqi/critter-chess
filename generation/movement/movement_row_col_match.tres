@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="MovementResourceRowCol" format=3 uid="uid://bjeqev2ivpstd"]
+
+[ext_resource type="Script" uid="uid://navystgoy67y" path="res://generation/movement/movement_resource_rowcol.gd" id="1_1b0ja"]
+
+[resource]
+script = ExtResource("1_1b0ja")
+directions = Array[int]([1, 3, 5, 7])
+mystery = true
+metadata/_custom_type_script = "uid://navystgoy67y"

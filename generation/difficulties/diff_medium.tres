@@ -2,13 +2,15 @@
 
 [ext_resource type="Script" uid="uid://7a03fervi8xj" path="res://puzzle-framework/puzzle_difficulty.gd" id="1_g4vc6"]
 [ext_resource type="Script" uid="uid://dbnf0revlghrs" path="res://puzzle-framework/tutorial/puzzle_tutorial_stage.gd" id="2_elbwi"]
+[ext_resource type="Resource" uid="uid://xojfg0j7acmd" path="res://ui/tutorial/tut_medium.tres" id="3_elbwi"]
 
 [resource]
 script = ExtResource("1_g4vc6")
 difficulty = 2
+tutorial = Array[ExtResource("2_elbwi")]([ExtResource("3_elbwi")])
 properties = Dictionary[String, Variant]({
 "allow_anonymous_homes": false,
-"collectible_ratio": Vector2(0.35, 0.75),
+"collectible_ratio": Vector2(0.5, 0.8),
 "forbid_backtracking": true,
 "grid_height_bounds": Vector2i(3, 4),
 "grid_width_bounds": Vector2i(4, 5),

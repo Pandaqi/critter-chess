@@ -6,6 +6,7 @@ var generator : PuzzleGenerator
 @export var visualizer : PuzzleVisualizer
 @export var cam : PuzzleCamera
 @export var ui : UI
+@export var tutorial : PuzzleTutorial
 
 func _ready() -> void:
 	generator = PuzzleGenerator.new()
@@ -17,6 +18,12 @@ func _ready() -> void:
 	visualizer.commands.turns_changed.connect(ui._on_turns_changed)
 	
 	cam.set_target(generator.grid.get_real_bounds(visualizer.cell_size))
+	
+	var focus_objects : Array[Node2D] = []
+	for cmd in generator.solution:
+		focus_objects.append(visualizer.get_cell_from_data(cmd.cell_from))
+		focus_objects.append(visualizer.get_cell_from_data(cmd.cell_to))
+	tutorial.set_focus_objects(focus_objects)
 	
 	PuzzleFramework.start_puzzle()
 

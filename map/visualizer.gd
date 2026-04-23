@@ -9,6 +9,7 @@ var cells : Array[Cell] = []
 
 @export var critter_double : Critter
 @export var audio_tap : AudioStreamPlayer2D
+@export var audio_direction : AudioStreamPlayer
 
 static var cell_size := Vector2(256.0, 256.0)
 
@@ -118,19 +119,20 @@ func select_piece_at(cell_data:CellData, auto_select := false) -> void:
 		get_cell_from_data(cell_data).on_error()
 		print("PuzzleVisualizer | Error | Can't pick cell without piece to move.")
 		return
-	
+
+	unselect_piece()
 	piece_chosen = cell_data.piece
 
 	valid_targets.assign(piece_chosen.get_possible_moves(generator).map(func(cmd:CommandMove): return cmd.cell_to))
 	
 	# If the piece is selected for us, and we have no other feedback (e.g. highlighting), then being out of moves is an instant fail because there's no way out
-	var should_highlight_moves = PuzzleSettings.get_value("highlight_moves")
-	var should_highlight_homes = PuzzleSettings.get_value("highlight_homes")
+	var should_highlight_moves : bool = PuzzleSettings.get_value("highlight_moves")
+	var should_highlight_homes : bool = PuzzleSettings.get_value("highlight_homes")
 	
 	if valid_targets.size() <= 0 and (not should_highlight_moves) and (not PuzzleSettings.get_value("player_selects_piece")):
 		fail("This piece has no valid moves (and moves are not highlighted or pickable by player)")
 		return
-
+	
 	for cell in cells:
 		cell.set_critter_highlighted(cell.data.piece == piece_chosen)
 		if should_highlight_moves:
@@ -193,6 +195,9 @@ func execute_turn() -> void:
 func animate_move_command(cmd:CommandMove) -> void:
 	var dir := PuzzleGrid.get_direction_between(cmd.cell_from, cmd.cell_to)
 	cmd.piece.last_move_dir = dir
+	
+	if dir != PuzzleGrid.Direction.NONE:
+		PuzzleAudio.play_voice(PuzzleGrid.direction_to_audio[dir], audio_direction, "ui/tutorial/directions")
 	
 	var start_pos := get_cell_from_data(cmd.cell_from).global_position
 

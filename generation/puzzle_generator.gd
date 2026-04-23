@@ -87,7 +87,8 @@ func create_map() -> void:
 	piece_types.shuffle()
 	
 	if PuzzleSettings.get_value("allow_mystery_animals"):
-		pieces_allowed_types += CritterData.get_mystery_types()
+		pieces_allowed_types = CritterData.get_mystery_types()
+		pieces_allowed_types.shuffle()
 	
 	if pieces_allowed_types.size() <= 0: 
 		pieces_allowed_types = pieces_required_types
@@ -191,9 +192,14 @@ func clean_up(desperate := false) -> bool:
 	
 	# nice-to-have checks that are turned off if we're struggling to find a puzzle
 	if not desperate:
-		var min_moves_wanted := floori(min_turns_required / float(pieces.size()))
-		var min_distance_wanted := floori(0.33 * grid.size.x)
 		for piece in pieces:
+			var min_moves_wanted := floori(min_turns_required / float(pieces.size()))
+			var min_distance_wanted := floori(0.33 * grid.size.x)
+			
+			if piece.is_mystery_critter(): 
+				min_moves_wanted = 1
+				min_distance_wanted = 1
+			
 			var moved_too_little := piece.path.size() < min_moves_wanted
 			if moved_too_little:
 				print("PuzzleGenerator | Attempt Discarded | Piece moved too little.")
@@ -212,6 +218,8 @@ func clean_up(desperate := false) -> bool:
 	for piece in pieces:
 		var start_cell := piece.get_start_cell()
 		start_cell.add_piece(piece)
+	for piece in pieces:
+		piece.reset()
 	
 	# reset any cell data accumulated during generation
 	for cell in get_all_cells():

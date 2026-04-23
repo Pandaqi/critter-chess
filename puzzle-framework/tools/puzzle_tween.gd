@@ -78,18 +78,20 @@ static func play_focus_grab_tween(obj:Node2D) -> Tween:
 	tw.tween_property(obj, "modulate", Color.WHITE, dur_flash)
 	return tw
 
-static func play_pointer_tween(obj:Node2D, pos:Vector2) -> Tween:
+static func play_pointer_tween(obj:Node2D, pos:Vector2, duration := 3.0) -> Tween:
 	obj.show()
 	obj.z_index = 1024
 	obj.set_position(pos)
 	
+	var duration_single_repeat := 1.0
+	var num_repeats := roundi(duration / duration_single_repeat)
+	duration_single_repeat = duration / float(num_repeats)
+	
 	var tw := obj.get_tree().create_tween()
-	tw.tween_property(obj, "position", pos + Vector2.RIGHT*8.0, 0.5)
-	tw.tween_property(obj, "position", pos, 0.5)
-	tw.tween_property(obj, "position", pos + Vector2.RIGHT*8.0, 0.5)
-	tw.tween_property(obj, "position", pos, 0.5)
-	tw.tween_property(obj, "position", pos + Vector2.RIGHT*8.0, 0.5)
-	tw.tween_property(obj, "position", pos, 0.5)
+	for i in range(num_repeats):
+		tw.tween_property(obj, "position", pos + Vector2.RIGHT*8.0, 0.5 * duration_single_repeat)
+		tw.tween_property(obj, "position", pos, 0.5*duration_single_repeat)
+	
 	tw.tween_callback(obj.hide)
 	return tw
 

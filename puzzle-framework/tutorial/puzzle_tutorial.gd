@@ -21,6 +21,7 @@ var timer : Timer
 @export var pointer_scene := preload("res://puzzle-framework/tutorial/click-tap-indicator.tscn")
 var pointer : Node2D
 
+var start_delay := 0.5 # seconds
 
 ## Populate this list with the right objects after creating/visualizing the puzzle
 ## (Example: fill it with the object to click for every turn of the solution, so that tutorial stages can directly reference them)
@@ -69,9 +70,8 @@ func set_focus_objects(obj:Array[Node2D]) -> void:
 func get_focus_object(idx:int) -> Node2D:
 	return objects_focus[idx]
 
-func focus_pointer(obj:Node2D) -> Tween:
-	# obj.get_global_transform_with_canvas().origin
-	return PuzzleTween.play_pointer_tween(pointer, obj.global_position)
+func focus_pointer(obj:Node2D, duration := 3.0) -> Tween:
+	return PuzzleTween.play_pointer_tween(pointer, obj.global_position, duration)
 
 func count_stages() -> int:
 	return stages.size()
@@ -83,6 +83,7 @@ func play_audio(a:AudioStream) -> void:
 
 func _on_puzzle_started() -> void:
 	initialize()
+	await get_tree().create_timer(start_delay).timeout # to prevent clash/mixture with any other sound effects or animations playing just as level is loaded
 	goto_next_stage()
 
 func get_current_stage() -> PuzzleTutorialStage:

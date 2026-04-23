@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CritterResource" format=3 uid="uid://dpc5l0ehij3ol"]
+
+[ext_resource type="Resource" uid="uid://bjeqev2ivpstd" path="res://generation/movement/movement_row_col_match.tres" id="1_q3q7i"]
+[ext_resource type="Script" uid="uid://crp7jsfwsmnoa" path="res://generation/pieces/critter_resource.gd" id="2_lp1qc"]
+
+[resource]
+script = ExtResource("2_lp1qc")
+name = "bunny"
+frame = 4
+movement = ExtResource("1_q3q7i")
+metadata/_custom_type_script = "uid://crp7jsfwsmnoa"

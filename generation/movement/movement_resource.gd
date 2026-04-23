@@ -6,12 +6,16 @@ class_name MovementResource
 @export var max_distance := -1
 @export var min_jumps := -1
 @export var max_jumps := -1
+@export var forbid_edge := false
+@export var max_moves := -1
 @export var mystery := false
 
 func is_valid(_cmd:CommandMove) -> bool:
 	return true
 
 func get_possible_moves(cd:CritterData, gen:PuzzleGenerator) -> Array[CommandMove]:
+	if max_moves != -1 and cd.count_moves() >= max_moves: return []
+	
 	var max_dist := 1
 	if gen.pieces_go_as_far_as_they_can: max_dist = -1
 	if max_distance != -1: max_dist = max_distance
@@ -48,11 +52,11 @@ func get_possible_moves(cd:CritterData, gen:PuzzleGenerator) -> Array[CommandMov
 				num_jumps += 1
 				continue
 			
+			# check for edge exceptions
+			if forbid_edge and gen.grid.is_edge(cell): break
+			
 			# jumped one time too many? don't continue any further
 			if num_jumps > cur_max_jumps: break
-			
-			# to prevent duplicates + wasting time considering cells 2(+) times
-			if cells_already_considered.has(cell): continue
 			
 			# haven't traveled far enough yet? do continue
 			if distance_traveled < min_dist: continue
@@ -60,6 +64,9 @@ func get_possible_moves(cd:CritterData, gen:PuzzleGenerator) -> Array[CommandMov
 			# haven't jumped enough yet? do continue
 			# @TODO: check LENGTH of each individual jump (i.e. how many pieces at once)?
 			if num_jumps < cur_min_jumps: continue
+			
+			# to prevent duplicates + wasting time considering cells 2(+) times
+			if cells_already_considered.has(cell): continue
 			
 			# we're happy, this is a valid square
 			arr.append(CommandMove.new(cd, cd.cell, cell))

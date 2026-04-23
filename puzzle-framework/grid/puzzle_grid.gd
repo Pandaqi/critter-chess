@@ -63,6 +63,17 @@ static var vector_to_direction : Dictionary[String, Direction] = {
 	"1-1": Direction.TOP_RIGHT
 }
 
+static var direction_to_audio : Dictionary[Direction, String] = {
+	Direction.RIGHT: "direction-right.ogg",
+	Direction.BOTTOM_RIGHT: "direction-bottom-right.ogg",
+	Direction.DOWN: "direction-down.ogg",
+	Direction.BOTTOM_LEFT: "direction-bottom-left.ogg",
+	Direction.LEFT: "direction-left.ogg",
+	Direction.TOP_LEFT: "direction-top-left.ogg",
+	Direction.UP: "direction-up.ogg",
+	Direction.TOP_RIGHT: "direction-top-right.ogg"
+}
+
 static func convert_direction_to_vector(dir:Direction) -> Vector2i:
 	if not (dir in direction_to_vector): return Vector2i.ZERO
 	return direction_to_vector[dir]
@@ -193,3 +204,7 @@ func get_cells_between(start:PuzzleCell, end:PuzzleCell) -> Array[PuzzleCell]:
 
 func get_real_bounds(cell_size:Vector2) -> Rect2:
 	return Rect2(Vector2.ZERO, cell_size * Vector2(size))
+
+func is_edge(cell:CellData) -> bool:
+	var pos := cell.pos
+	return pos.x == 0 or pos.x == (size.x - 1) or pos.y == 0 or pos.y == (size.y - 1)

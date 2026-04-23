@@ -38,6 +38,7 @@ var object_focus : Node2D
 ## if true, it uses the default pointer image and pointer tween on the focus object
 ## if false, you need custom code to decide what you want to do with it
 @export var object_focus_is_pointer := false
+@export var pointer_tween_duration := 3.0
 
 ## whether it should automatically be removed when tutorial is done cycling through its stages
 ## or stay around forever as you play
@@ -78,7 +79,7 @@ func activate(pt:PuzzleTutorial) -> void:
 	if object_focus_index != -1:
 		object_focus = pt.get_focus_object(object_focus_index)
 		if object_focus_is_pointer:
-			var tw := pt.focus_pointer(object_focus)
+			var tw := pt.focus_pointer(object_focus, pointer_tween_duration)
 			register_dynamic_element(tw)
 	
 	run_custom_callback(pt)

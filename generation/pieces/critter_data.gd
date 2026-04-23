@@ -53,6 +53,8 @@ static var type_library : Dictionary[CritterData.Type, CritterResource] = {
 	CritterData.Type.WHALE: load("res://generation/pieces/critter_whale.tres"),
 	CritterData.Type.CHICK: load("res://generation/pieces/critter_chick.tres"),
 	CritterData.Type.HORSE: load("res://generation/pieces/critter_horse.tres"),
+	CritterData.Type.BUTTERFLY: load("res://generation/pieces/critter_butterfly.tres"),
+	CritterData.Type.BUNNY: load("res://generation/pieces/critter_bunny.tres"),
 }
 
 signal changed()
@@ -82,6 +84,10 @@ func is_at_home() -> bool:
 
 #region Path
 
+func reset() -> void:
+	path = [get_cell()]
+	last_move_dir = PuzzleGrid.Direction.NONE
+
 func get_start_cell() -> CellData:
 	return path.front()
 
@@ -90,6 +96,9 @@ func get_end_cell() -> CellData:
 
 func count_path() -> int:
 	return path.size()
+
+func count_moves() -> int:
+	return count_path() - 1 # first element is just initialization, not a move, hence the difference
 
 func is_in_path(c:CellData) -> bool:
 	return path.has(c)
@@ -123,6 +132,9 @@ static func get_mystery_types() -> Array[CritterData.Type]:
 
 static func get_type_resource_for(tp:Type) -> CritterResource:
 	return type_library[tp]
+
+func is_mystery_critter() -> bool:
+	return get_movement_resource().mystery
 
 func get_type_resource() -> CritterResource:
 	return get_type_resource_for(type)

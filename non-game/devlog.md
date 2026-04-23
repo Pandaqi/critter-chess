@@ -208,7 +208,83 @@ It's a silly problem, but it's also the most important one: **When a piece stand
 
 That's just annoying and definitely needs a good fix. I wanted to find something that _also_ allowed placing collectibles on home squares, because that would give the algorithm way more options too. (Remember that the algorithm prefers moving pieces to spaces that other pieces have been before. As such, many pieces will pass by a home of someone else before getting to their own home. If we can place a collectible on those homes, it would give those movements more meaning.)
 
-@TODO
+And so, in the end, I decided to use the **four corners** of each square. That was the one place that was completely empty so far, yet always visible.
+
+* I placed an icon in each of the four corners. This can show an _animal_ or a _direction_.
+* If the tile is a home, then it shows the _animal_ (that should visit this home).
+* If the tile has a collectible, then it shows the _direction_ of that collectible.
+* If it has both, it just does a 50/50 split between those two. (That is, two icons show animal, two show collectible direction.)
+* If the tile is _not obscured_ (there's no piece here right now), then the corner icons are hidden entirely. (Because it's very overwhelming to show them on ALL TILES, AT ALL TIMES.)
+
+When a home is "completed" (the right animal is there right now), I change those corners into nice _flowers_. I also change the tile to a third type that clearly communicates the home is done. This clearly communicates that the home is correct and done and you don't need to look at it anymore. More feedback about such things is basically always a good idea in games!
+
+As some final finishing flourishes,
+
+* When you hover over a tile, it pops up a bit (basic feedback for what you're doing), but it also makes the piece on it a bit transparent (so you can see through it what's on the tile).
+* When you select a piece, all _possible homes_ are subtly animated too. (So you don't _need_ to figure this out yourself necessarily.)
+* And a few more tiny things I'm forgetting now, but the point is ...
+
+All these fixes make the game much nicer to play and look at. I'm not saying that the game idea is bad or anything, but I do feel---in hindsight---that this wasn't the best approach. A lesson learned, I guess, about grid-based Chess-like puzzles.
+
+It's simply very hard to have **special tiles** in a game where **things stand on the tile all the time**. Those things will always be obscuring what they're standing on! Unless you take this into account _from the start_ and find a smarter solution, you have to resort to after-the-fact fixes like this to communicate that hidden information to the player.
+
+If I make a similar puzzle again, I would probably give each special tile a **unique design**. So you know which one it is just by seeing any small part of it. Doesn't matter if something is standing on it. Alternatively, one could think about reserving some space on the tile to always be visible---e.g. the top-right corner has a big icon that goes on top of everything.
+
+In any case, this game now looks good and is easy to play thanks to all to "helpers/tools" communicating stuff. Next time, I just want to prevent this from being a problem in the first place with a more clever core (layout) design.
+
+## Polishing & Finishing
+
+Like with my other puzzle games, the "movement" of pieces is basically a fake. 
+
+* All cells have a static image of a piece inside of them. 
+* The game just _duplicates_ the piece, animates that body double moving from one tile to another, and when done destroys it again. 
+* At that point, we tell the _new tile_ "hey, this piece is now here", so it shows its static image.
+
+From the perspective of the player, the piece actually moved. Behind the scenes, it just teleported from cell A to cell B and we merely played a fake animation to make that happen in a nice way. This is nothing unique---this is how almost all games do stuff like this ;)
+
+Usually, you literally move something from point A to point B in a straight line. But that didn't look great in this game. Instead, I calculated all the cells in-between, and animate the pieces _step by step_. It hops to the next cell, then it hops to the next one, and so forth until it lands on its final cell. After adding a soft "thud" sound effect for each hop, and some dust particles, it feels much nicer to move pieces.
+
+I also added some quality of life features such as `keep_piece_selected`: if your last turn moved piece A, then it stays selected for the new turn. In many cases, you want to move the same piece twice. And in all cases, that is a more sensible default than deselecting it after a move, and annoying players because they now have to re-select the thing over and over.
+
+Finally, I finished all those "mystery critters" and created a nice PDF with the "solutions". (Explaining + showing how they move, so you know if you actually figured them out.) Some of them refused to appear, no matter how often I generated a new puzzle, which is always a sign that their rules are too hard to fit into the puzzle. 
+
+For example, the FROG never appeared. It _requires_ jumping over one thing (it can't move without jumping over something), which I thought shouldn't be that hard. But then I realized the FROG was set to the default settings otherwise (only move straight and not diagonal, only allow jumping over 1 thing at a time). It's just very likely (on harder difficulties) that there are _multiple_ pieces to jump over. So I was telling the frog "you MUST jump over EXACTLY 1 thing, no more no less", which is just unlikely to lead to valid moves for it. Changing that setting made it appear just as often as the others.
+
+All other finishing touches took an hour or two combined, but aren't anything interesting. Basic sound effects, animations to make things appear/disappear with a pop or a fade (instead of instantly), even more settings to tweak about how much the game helps you or how it generates puzzles.
+
+## But wait, it's not like Chess at all!
+
+I originally had the vague idea of expanding into actual Chess on the hardest difficulties. To add something like capturing. To add the split between "you move like this, but you capture like that". But, well, if you read this devlog then you know that the game is already filled with loads of content and rules variations and it just does not fit.
+
+I don't like giving up so easily, though, so I at least _experimented_ with making the puzzle more like Chess in the end. I wrote down a list of possible ways to place "blocking pieces" when generating puzzles which you _have_ to capture or you can't solve it. Or maybe a small objective change where capturing pieces can also capture _homes_, so you have to avoid deleting all the homes. 
+
+Many of those ideas were good ... but for a different puzzle game. They just did not fit this one anymore. It would be like tacking a completely new game onto this one, all the way at the end, surprising players with five complicated changes. _Maybe_ I could revise earlier difficulties to already introduce capturing more gradually, but that would require teaching 2--4 new things at a new difficulty level, which is just too much.
+
+But the only objective that makes sense with capturing is if you have to **clear the board** (until only 1 piece remains). And that's just an entirely different objective from the current game.
+
+So no, I moved all those ideas to a _new_ game. _Critter Chess: Deluxe_ or whatever. Probably a better name. It would have that new objective and introduce capturing from the start. I don't like redoing the same things, however, so I'll probably move that game to Level 2 of the webshop and tweak mechanics to teach other skills too (such as counting or addition; an obvious choice would be that a piece can only capture something with a LOWER number than itself).
+
+The last thing I did was update the store page / marketing text to be clear on what this game is and isn't.
+
+## Conclusion
+
+I feel like I'm repeating myself a lot in these conclusions (at least in all the devlogs about my puzzle games). 
+
+* The core idea is solid and works well. 
+* We encountered some new issues along the way (visuals obscuring important other visuals, meaningless solutions, etc), but found good solutions by trying to turn those bugs into features. 
+* The end result is nothing ground-breaking, but it looks good, plays well, and gives engaging puzzles that the youngest of kids can already play.
+* I am slightly disappointed that I wasn't able to do _more_ with this one idea (such as bringing _capturing_ into the fold) and that I had to resort to the "grab collectibles along the way"-solution again instead of something new and cleverer. But those are nitpicks.
+
+I guess the biggest conclusion is about that repetitiveness. I've made several puzzle games now using _very_ similar code---a grid, movement over it, blocking spaces, and visiting the right spaces. The full execution of all of this games is different, sure, because you can do _a lot_ with those similar elements. But it's still a lot of the same code, same solutions, same ideas.
+
+That's why I will probably make a completely different type of puzzle game next time, on purpose. Something that is NOT just a character generating a random path through a grid. (And if it is, at least do something NEW and UNIQUE with it.)
+
+It's also for that reason that I'm not starting with the sequel to Critter Chess immediately, because that would be the definition of _more of the same_. (The brain also simply needs time to generate some better ideas and starting immediately with that sequel would probably make me be less creative in its execution.)
+
+Until the next devlog,
+
+Pandaqi
+
 
 
 

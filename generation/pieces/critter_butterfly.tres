@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CritterResource" format=3 uid="uid://beu2lrpp8qhv3"]
+
+[ext_resource type="Script" uid="uid://crp7jsfwsmnoa" path="res://generation/pieces/critter_resource.gd" id="1_tkrkx"]
+[ext_resource type="Resource" uid="uid://rcxp3cefxnj6" path="res://generation/movement/movement_targets_no_neighbors.tres" id="1_ymj8r"]
+
+[resource]
+script = ExtResource("1_tkrkx")
+name = "butterfly"
+frame = 16
+movement = ExtResource("1_ymj8r")
+metadata/_custom_type_script = "uid://crp7jsfwsmnoa"

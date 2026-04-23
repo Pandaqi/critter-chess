@@ -4,7 +4,8 @@
 
 [resource]
 script = ExtResource("1_wbmcw")
-directions = Array[int]([1, 5, 3, 7])
+directions = Array[int]([1, 5, 3, 7, 2, 4, 6, 8])
 min_jumps = 1
+max_jumps = 4
 mystery = true
 metadata/_custom_type_script = "uid://qh7bpew8tgis"

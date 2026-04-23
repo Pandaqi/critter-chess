@@ -22,6 +22,9 @@ func _on_data_changed() -> void:
 	var vec := PuzzleGrid.convert_direction_to_vector(data.last_move_dir)
 	sprite.flip_h = (vec.x < 0)
 	
+	display_arrows()
+
+func display_arrows() -> void:
 	# filter out any "duplicate" directions (opposites of other ones)
 	# because that just looks messy visually and is not needed because backwards movement is enabled
 	var dirs_all := data.get_movement_resource().directions
@@ -30,6 +33,10 @@ func _on_data_changed() -> void:
 		var dir_opposite := PuzzleGrid.get_opposite_direction_of(dir)
 		if dirs.has(dir_opposite): continue
 		dirs.append(dir)
+	
+	# Hard override to always hide all arrows on mystery critters
+	if data.is_mystery_critter():
+		dirs = []
 	
 	# create more arrows if needed
 	while arrows.size() < dirs.size():
@@ -43,6 +50,7 @@ func _on_data_changed() -> void:
 		arrows[i].set_visible(should_display)
 		if not should_display: continue
 		arrows[i].set_dir(dirs[i])
+
 
 func set_type(tp:CritterData.Type) -> void:
 	sprite.set_frame(CritterData.get_type_resource_for(tp).frame)

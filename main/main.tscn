@@ -11,26 +11,31 @@
 [ext_resource type="PackedScene" uid="uid://q1jom8bphw8d" path="res://puzzle-framework/gameover/game_over_dialog.tscn" id="5_kfbq2"]
 [ext_resource type="PackedScene" uid="uid://4nsuwsh0lrxt" path="res://ui/turn_icon.tscn" id="6_67ri8"]
 [ext_resource type="AudioStream" uid="uid://cch0wwwcrfh4u" path="res://puzzle-framework/game/sfx/lock-unlock.ogg" id="6_bsumw"]
+[ext_resource type="Script" uid="uid://dpg60n5rlnn4j" path="res://puzzle-framework/tutorial/puzzle_tutorial.gd" id="10_fwcvl"]
 
-[node name="Main" type="Node2D" unique_id=1377274028 node_paths=PackedStringArray("visualizer", "cam", "ui")]
+[node name="Main" type="Node2D" unique_id=1377274028 node_paths=PackedStringArray("visualizer", "cam", "ui", "tutorial")]
 script = ExtResource("1_53q0u")
 visualizer = NodePath("Visualizer")
 cam = NodePath("PuzzleCamera")
 ui = NodePath("UI")
+tutorial = NodePath("PuzzleTutorial")
 
 [node name="Background" parent="." unique_id=1518080263 instance=ExtResource("2_bsumw")]
 seeded = true
 
-[node name="Visualizer" type="Node2D" parent="." unique_id=1022576508 node_paths=PackedStringArray("critter_double", "audio_tap")]
+[node name="Visualizer" type="Node2D" parent="." unique_id=1022576508 node_paths=PackedStringArray("critter_double", "audio_tap", "audio_direction")]
 script = ExtResource("2_pjrb6")
 cell_scene = ExtResource("3_kfbq2")
 critter_double = NodePath("CritterDouble")
 audio_tap = NodePath("AudioTap")
+audio_direction = NodePath("AudioDirection")
 
 [node name="CritterDouble" parent="Visualizer" unique_id=1499336686 instance=ExtResource("4_grrlh")]
 
 [node name="AudioTap" type="AudioStreamPlayer2D" parent="Visualizer" unique_id=1906539587]
 stream = ExtResource("6_bsumw")
+
+[node name="AudioDirection" type="AudioStreamPlayer" parent="Visualizer" unique_id=1839141592]
 
 [node name="PuzzleCamera" type="Camera2D" parent="." unique_id=1732485779]
 script = ExtResource("3_xwkvk")
@@ -57,6 +62,11 @@ theme_override_font_sizes/font_size = 48
 text = "Turn 2/4"
 
 [node name="TurnsList" type="Node2D" parent="UI" unique_id=1683863092]
+
+[node name="PuzzleTutorial" type="CanvasLayer" parent="." unique_id=1740295279 node_paths=PackedStringArray("container_2d")]
+script = ExtResource("10_fwcvl")
+container_2d = NodePath("../Visualizer")
+metadata/_custom_type_script = "uid://dpg60n5rlnn4j"
 
 [node name="GameMenu" parent="." unique_id=950523672 instance=ExtResource("4_3wy1v")]
 allow_undo = true

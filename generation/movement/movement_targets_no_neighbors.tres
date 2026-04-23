@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="MovementResourceTargets" format=3 uid="uid://rcxp3cefxnj6"]
+
+[ext_resource type="Script" uid="uid://c7ax6rswkvi6b" path="res://generation/movement/movement_resource_targets.gd" id="1_rpnis"]
+
+[resource]
+script = ExtResource("1_rpnis")
+directions = Array[int]([1, 2, 3, 4, 5, 6, 7, 8])
+mystery = true
+metadata/_custom_type_script = "uid://c7ax6rswkvi6b"

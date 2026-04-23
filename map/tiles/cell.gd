@@ -15,6 +15,7 @@ var data : CellData
 @export_group("Effects")
 @export var anim_player : AnimationPlayer
 @export var anim_player_collectible : AnimationPlayer
+@export var anim_player_critter : AnimationPlayer
 @export var particles_collectible : PackedScene
 
 @export_group("Audio")
@@ -122,11 +123,13 @@ func on_error() -> void:
 
 func set_critter_highlighted(val:bool) -> void:
 	critter.modulate = Color.WHITE if val else unhighlight_color
-	critter.set_scale(Vector2.ONE * 1.2 if val else Vector2.ONE * 0.8)
+	critter.set_scale(Vector2.ONE * 1.175 if val else Vector2.ONE * 0.8)
+	if val: anim_player_critter.play("critter_selected")
 
 func reset_critter_highlighted() -> void:
 	critter.modulate = Color.WHITE
 	critter.set_scale(Vector2.ONE)
+	anim_player_critter.stop()
 
 func set_move_highlighted(val:bool) -> void:
 	sprite_outline.set_visible(val)

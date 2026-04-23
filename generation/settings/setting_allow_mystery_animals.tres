@@ -7,5 +7,5 @@ script = ExtResource("1_i53uq")
 key = "allow_mystery_animals"
 label = "Allow Mystery Animals"
 default = false
-tooltip = "Adds animals whose (odd) movement is not explained; play around and figure them out! "
+tooltip = "Adds animals whose movement is not explained; play and figure them out! (Recommended: enable highlight moves.)"
 metadata/_custom_type_script = "uid://dhfd6mahjlglv"

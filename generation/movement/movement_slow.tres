@@ -7,5 +7,6 @@ script = ExtResource("1_yvjk5")
 directions = Array[int]([2, 4, 6, 8, 1, 5, 3, 7])
 max_distance = 1
 max_jumps = 0
+max_moves = 2
 mystery = true
 metadata/_custom_type_script = "uid://qh7bpew8tgis"
