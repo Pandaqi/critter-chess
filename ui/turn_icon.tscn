@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://4nsuwsh0lrxt"]
+
+[ext_resource type="Script" uid="uid://v6hoat56ihkj" path="res://ui/turn_icon.gd" id="1_danct"]
+[ext_resource type="Texture2D" uid="uid://7c85b4wefmd2" path="res://map/critters/animals-spritesheet.png" id="2_ylqrw"]
+
+[node name="TurnIcon" type="Node2D" unique_id=186454343 node_paths=PackedStringArray("sprite")]
+script = ExtResource("1_danct")
+sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=78087918]
+texture_filter = 6
+texture = ExtResource("2_ylqrw")
+hframes = 4
+vframes = 6

@@ -8,4 +8,6 @@ class_name Home
 func set_type(tp:CritterData.Type) -> void:
 	if PuzzleSettings.get_difficulty_property("allow_anonymous_homes"): 
 		critter.hide()
+		return
+	
 	critter.set_type(tp)

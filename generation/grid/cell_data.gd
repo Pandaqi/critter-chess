@@ -88,4 +88,7 @@ func is_home() -> bool:
 func is_home_for(tp:CritterData.Type) -> bool:
 	return home_for == tp
 
+func home_is_filled() -> bool:
+	return has_piece() and piece.type == home_for
+
 #endregion

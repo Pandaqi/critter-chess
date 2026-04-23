@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://b2aaj1ohvijbc"]
+
+[ext_resource type="Shader" uid="uid://dpvx48s05ephq" path="res://map/critters/critter_simplified_shader.gdshader" id="1_s4ipn"]
+
+[resource]
+shader = ExtResource("1_s4ipn")
+shader_parameter/color = Color(0.84671146, 0.9608713, 7.70092e-07, 1)

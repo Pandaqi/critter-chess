@@ -15,16 +15,21 @@ func _init(pc:CritterData, sc:CellData, tc:CellData):
 
 func do(cmds:PuzzleCommands) -> bool:
 	cell_from.remove_piece(piece)
+	
+	if cmds.visualizer:
+		await cmds.visualizer.animate_move_command(self)
+	
 	cell_to.add_piece(piece)
 	
 	if cmds.generating: return true
 	
 	if cell_to.has_collectible():
-		var dir := PuzzleGrid.get_dir_between(cell_from, cell_to)
+		var dir := PuzzleGrid.get_direction_between(cell_from, cell_to)
 		if cell_to.collectible_matches(dir):
+			print("Executing collect command")
 			await cmds.execute_command(CommandCollect.new(cell_to))
 	
-	if cell_to.is_home_for(piece.type) and cmds.visualizer.generator.remove_home_upon_completion:
+	if cell_to.is_home_for(piece.type):
 		await cmds.execute_command(CommandHome.new(piece, cell_to))
 
 	return true

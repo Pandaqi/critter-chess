@@ -8,7 +8,7 @@ class_name MovementResource
 @export var max_jumps := -1
 @export var mystery := false
 
-func is_valid(cmd:CommandMove) -> bool:
+func is_valid(_cmd:CommandMove) -> bool:
 	return true
 
 func get_possible_moves(cd:CritterData, gen:PuzzleGenerator) -> Array[CommandMove]:
@@ -37,7 +37,9 @@ func get_possible_moves(cd:CritterData, gen:PuzzleGenerator) -> Array[CommandMov
 	for dir in directions_final:
 		var num_jumps := 0
 		var distance_traveled := 0
-		var cells := gen.grid.get_cells_in_direction(cd.cell, dir, max_dist)
+		var cells : Array[CellData] 
+		cells.assign( gen.grid.get_cells_in_direction(cd.cell, dir, max_dist) )
+		
 		for cell in cells:
 			distance_traveled += 1
 			

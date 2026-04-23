@@ -1,12 +1,16 @@
 [gd_scene format=3 uid="uid://6f215upa66k1"]
 
 [ext_resource type="Script" uid="uid://qodhyov03lg2" path="res://main/main.gd" id="1_53q0u"]
+[ext_resource type="PackedScene" uid="uid://d3t3m7tjxqog5" path="res://map/background/background.tscn" id="2_bsumw"]
 [ext_resource type="Script" uid="uid://blarxrefh56ma" path="res://map/visualizer.gd" id="2_pjrb6"]
 [ext_resource type="PackedScene" uid="uid://blfjqyfj54gab" path="res://map/tiles/cell.tscn" id="3_kfbq2"]
 [ext_resource type="Script" uid="uid://haho73xq30yv" path="res://puzzle-framework/tools/camera.gd" id="3_xwkvk"]
 [ext_resource type="PackedScene" uid="uid://2xygcypttdo7" path="res://puzzle-framework/game/game_menu.tscn" id="4_3wy1v"]
+[ext_resource type="PackedScene" uid="uid://b2kca4c2r61np" path="res://map/critters/critter.tscn" id="4_grrlh"]
 [ext_resource type="Script" uid="uid://dplyb0toxmhc2" path="res://ui/ui.gd" id="5_4dugh"]
 [ext_resource type="PackedScene" uid="uid://q1jom8bphw8d" path="res://puzzle-framework/gameover/game_over_dialog.tscn" id="5_kfbq2"]
+[ext_resource type="PackedScene" uid="uid://4nsuwsh0lrxt" path="res://ui/turn_icon.tscn" id="6_67ri8"]
+[ext_resource type="AudioStream" uid="uid://cch0wwwcrfh4u" path="res://puzzle-framework/game/sfx/lock-unlock.ogg" id="6_bsumw"]
 
 [node name="Main" type="Node2D" unique_id=1377274028 node_paths=PackedStringArray("visualizer", "cam", "ui")]
 script = ExtResource("1_53q0u")
@@ -14,18 +18,31 @@ visualizer = NodePath("Visualizer")
 cam = NodePath("PuzzleCamera")
 ui = NodePath("UI")
 
-[node name="Visualizer" type="Node2D" parent="." unique_id=1022576508]
+[node name="Background" parent="." unique_id=1518080263 instance=ExtResource("2_bsumw")]
+seeded = true
+
+[node name="Visualizer" type="Node2D" parent="." unique_id=1022576508 node_paths=PackedStringArray("critter_double", "audio_tap")]
 script = ExtResource("2_pjrb6")
 cell_scene = ExtResource("3_kfbq2")
+critter_double = NodePath("CritterDouble")
+audio_tap = NodePath("AudioTap")
+
+[node name="CritterDouble" parent="Visualizer" unique_id=1499336686 instance=ExtResource("4_grrlh")]
+
+[node name="AudioTap" type="AudioStreamPlayer2D" parent="Visualizer" unique_id=1906539587]
+stream = ExtResource("6_bsumw")
 
 [node name="PuzzleCamera" type="Camera2D" parent="." unique_id=1732485779]
 script = ExtResource("3_xwkvk")
-edge_margin = Vector2(32, 92)
+edge_margin = Vector2(32, 128)
 metadata/_custom_type_script = "uid://haho73xq30yv"
 
-[node name="UI" type="CanvasLayer" parent="." unique_id=744244863 node_paths=PackedStringArray("label")]
+[node name="UI" type="CanvasLayer" parent="." unique_id=744244863 node_paths=PackedStringArray("visualizer", "label", "turn_list_container")]
 script = ExtResource("5_4dugh")
+visualizer = NodePath("../Visualizer")
 label = NodePath("Label")
+turn_icon_scene = ExtResource("6_67ri8")
+turn_list_container = NodePath("TurnsList")
 
 [node name="Label" type="Label" parent="UI" unique_id=536482692]
 anchors_preset = 5
@@ -38,6 +55,8 @@ grow_horizontal = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 48
 text = "Turn 2/4"
+
+[node name="TurnsList" type="Node2D" parent="UI" unique_id=1683863092]
 
 [node name="GameMenu" parent="." unique_id=950523672 instance=ExtResource("4_3wy1v")]
 allow_undo = true

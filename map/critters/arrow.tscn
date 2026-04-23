@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dttcrjnou8ygk"]
+
+[ext_resource type="Script" uid="uid://bfqmwf8j2ubnl" path="res://map/critters/arrow.gd" id="1_1lf6d"]
+[ext_resource type="Texture2D" uid="uid://b55ta05x4v2b1" path="res://map/misc/wooden-arrow.png" id="2_qrvjc"]
+
+[node name="Arrow" type="Node2D" unique_id=2082353441]
+script = ExtResource("1_1lf6d")
+
+[node name="SpriteArrow" type="Sprite2D" parent="." unique_id=1781886904]
+texture_filter = 6
+position = Vector2(6, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_qrvjc")

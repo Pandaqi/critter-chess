@@ -32,6 +32,7 @@ enum Type
 var type : CritterData.Type
 var cell : CellData
 var path : Array[CellData]
+var last_move_dir := PuzzleGrid.Direction.NONE
 
 # @TODO: a better place to put this? Global autoload?
 static var type_library : Dictionary[CritterData.Type, CritterResource] = {

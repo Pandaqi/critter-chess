@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://kme3xvun4gc4" path="res://puzzle-framework/puzzle_framework.gd" id="1_57jsw"]
 [ext_resource type="Script" uid="uid://7a03fervi8xj" path="res://puzzle-framework/puzzle_difficulty.gd" id="2_3a4ji"]
+[ext_resource type="PackedScene" uid="uid://d3t3m7tjxqog5" path="res://map/background/background.tscn" id="2_hxaq4"]
 [ext_resource type="Resource" uid="uid://dnb8nvvk2fbtx" path="res://generation/difficulties/diff_easiest.tres" id="3_g61x5"]
 [ext_resource type="Script" uid="uid://xoy87uum5v5s" path="res://puzzle-framework/settings/setting.gd" id="4_uqhpv"]
 [ext_resource type="Resource" uid="uid://dkdtw00sr5lti" path="res://generation/difficulties/diff_easy.tres" id="5_hsw23"]
@@ -20,6 +21,10 @@
 [ext_resource type="Resource" uid="uid://cryvpmwnyrrem" path="res://generation/settings/setting_highlight_moves.tres" id="14_w5xje"]
 [ext_resource type="Resource" uid="uid://db5arb4tksbh2" path="res://generation/settings/setting_player_selects_piece.tres" id="15_ftmnh"]
 [ext_resource type="Resource" uid="uid://d2xohtnwrs7qn" path="res://generation/settings/setting_allow_mystery_animals.tres" id="16_w5xje"]
+[ext_resource type="Resource" uid="uid://cnx4b0i4jr6lr" path="res://generation/settings/setting_anonymous_homes.tres" id="21_ndg7f"]
+[ext_resource type="Resource" uid="uid://deun47tlgace2" path="res://generation/settings/setting_disable_turns.tres" id="22_gogk4"]
+[ext_resource type="Resource" uid="uid://dbxi4ft88s10p" path="res://generation/settings/setting_highlight_homes.tres" id="23_gogk4"]
+[ext_resource type="AudioStream" uid="uid://ciic3p8ga6vu3" path="res://main/bg-theme.ogg" id="24_q4ynd"]
 
 [node name="PuzzleFramework" type="Node" unique_id=835186744]
 script = ExtResource("1_57jsw")
@@ -27,6 +32,7 @@ game_name = "Critter Chess"
 game_version = "1.2.8"
 game_tagline = "Teaches Directions, Spatial Awareness & Forest Animals"
 favicon = "main/critter-chess-favicon.png"
-menu_pattern_enabled = true
+menu_scene_custom = ExtResource("2_hxaq4")
 difficulties = Array[ExtResource("2_3a4ji")]([ExtResource("3_g61x5"), ExtResource("5_hsw23"), ExtResource("6_ndg7f"), ExtResource("7_gogk4"), ExtResource("8_q4ynd")])
-settings = Array[ExtResource("4_uqhpv")]([ExtResource("10_q4ynd"), ExtResource("6_k0h2b"), ExtResource("11_ftmnh"), ExtResource("7_w5xje"), ExtResource("12_w5ts3"), ExtResource("8_ftmnh"), ExtResource("9_w5ts3"), ExtResource("10_rtetl"), ExtResource("13_k0h2b"), ExtResource("14_w5xje"), ExtResource("15_ftmnh"), ExtResource("16_w5xje")])
+settings = Array[ExtResource("4_uqhpv")]([ExtResource("10_q4ynd"), ExtResource("6_k0h2b"), ExtResource("11_ftmnh"), ExtResource("7_w5xje"), ExtResource("12_w5ts3"), ExtResource("8_ftmnh"), ExtResource("9_w5ts3"), ExtResource("10_rtetl"), ExtResource("13_k0h2b"), ExtResource("14_w5xje"), ExtResource("23_gogk4"), ExtResource("15_ftmnh"), ExtResource("16_w5xje"), ExtResource("21_ndg7f"), ExtResource("22_gogk4")])
+bg_music = Array[AudioStream]([ExtResource("24_q4ynd")])

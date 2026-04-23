@@ -40,9 +40,9 @@ static func play_shake_tween(obj:Node2D, offset_bounds := Vector2(16, 32)) -> Tw
 	tw.tween_property(obj, "position", cur_pos, 0.25*dur)
 	return tw
 
-static func play_jump_tween(obj:Node2D, jump_height_bounds := Vector2(16, 32)) -> Tween:
+static func play_jump_tween(obj:Node2D, jump_height_bounds := Vector2(16, 32), dur_bounds := Vector2(0.1, 0.25)) -> Tween:
 	var tw := obj.get_tree().create_tween().set_ease(Tween.EASE_OUT)
-	var dur := randf_range(0.1, 0.25)
+	var dur := randf_range(dur_bounds.x, dur_bounds.y)
 	var height := randf_range(jump_height_bounds.x, jump_height_bounds.y)
 	var cur_pos := obj.position
 	var cur_scale := obj.scale

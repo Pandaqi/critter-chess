@@ -4,55 +4,50 @@
 
 ## Puzzle Generation/Play
 
+@TODO: Do something with CAPTURING? Like actual Chess?
+
+* Implementation:
+  * Make move valid if already has piece _if it can capture_.
+  * Add a `CommandCapture` that handles this (as the old piece is just gone, replaced by new one)
+* Have some mystery animals do this?
+* QUESTION: WHAT IS THE ACTUAL PURPOSE OF THIS? Because removing animals now simply means making the puzzle unsolvable ...
+  * I _could_ add animals whose entire purpose is to be captured?
+  * After moving such an animal to an empty space, pretend there was an animal there all along. (An animal with no home.)
+  * _This can make the puzzle unsolvable though, as placing an animal there might ruin the moves of earlier animals passing by that space_.
+* I _could_ change "capture" to happen by jumping _over_ animals. Then we "merely" need to ensure that any animals our mystery animal jumped over are removed + do _not_ have a home to visit.
+* I _could_ make it twofold ---> capturing animals will _remove homes_ if they land there, and _remove pieces_ if they land on them. Through a combination of removing BOTH the piece and its home, you can still solve puzzles?
+* Or I _could_ add animals that simply CAN'T MOVE. They stand on your home square or in the way, and the only way to pass through is to capture them?
 
 
+@TODO: A Direction + Grouping puzzle game idea where the **direction** is **given** each turn. In other words, 
+
+* Pieces don't have assigned movements.
+* Each turn, you simply get an arrow that tells you how things must move now.
+* You tap one animal => **all animals of that type now take one step in that direction!** (if they can)
+* ====> THIS IS A DIFFERENT GAME -> **Dancing Dodo(e)s** or **Salsa Zoo!** or **Swingy Zoo!**
 
 
-
-## Visuals
-
-* Show the ANIMAL ORDER + HIGHLIGHT CURRENT ONE.
-  * If player picks the animal, these sprites just switch to general flowers or something to indicate turns?
-  * Have a **setting** to make a "max turns" optional?
-  * Also turn **allow anonymous homes** into a setting? (It actually makes the puzzle much easier I've seen ... Does have the nice bonus of not needing to see the TYPE of the home ever when obscured)
-* Show ALL arrows for where a piece can move
-* Find solution for **not being able to see home type below animal**
-  * Is there a way to also **add collectibles to homes**? Because our algorithm prefers putting other pieces on your homes, and if we can place collectibles then we actually have a good _reason_ to go there!
-  * **THIS IS OUR BIGGEST PROBLEM RIGHT NOW**
-  * **At the very least, HIGHLIGHT all possible homes when a piece of that type is selected!**
-    * I probably want to use the four corners. Show the type on all four. Show type on 2, direction on 2, if there's also a collectible there.
-    * Otherwise we can put a very obvious circle/panel in _front_ of the square (at the bottom) showing the type and stuff.
-    * _Just try both, maybe even allow people to set this themselves_.
-* Pieces more lively
-* Appear/disappear
-* Fake move tween on executing turn
-  * If the move is a STRAIGHT LINE, make the pieces "hop" to their target _one space at a time_!
-* Dotted rectangles on possible squares? Glow? Flowers around edges? Some other more subtle effect to indicate this?
-* Several different forest backgrounds?
-* If we _do_ keep homes around after completing them, then it should clearly change the visual of home + pawn to indicate "this one is in the right place!"
-  * Change the tile below to a third type?
-  * Do a little happy hop?
-* FIX: Reset/refresh piece + target selection UI if you UNDO while in the midst of that.
-* CREATE FINAL MYSTERY ANIMALS + ADD A LITTLE BOOKLET WITH HOW ALL THE "MYSTERY ANIMALS" MOVE!
-* React to player HOVER. (Make critter transparent to show what's on the cell beneath them??)
-* QOL: Keep the same piece selected as your last move (by default; can turn this off)?
-* TWEAK: Maybe lower collectible probability on Medium difficulty? SHOULD it have collectibles?
 
 ## Finishing
 
 * Audio narration of direction you moved in
 * Tutorial => Images + VoiceOver
-
+* CREATE FINAL MYSTERY ANIMALS + ADD A LITTLE BOOKLET WITH HOW ALL THE "MYSTERY ANIMALS" MOVE!
 
 
 ## PuzzleFramework (THIS IS LATEST VERSION NOW)
-
 
 * Allow setting the _scale_ of the `give_feedback` node (and other UI elements??)
 * SOME WAY TO TRACK/SAVE PROGRESS? Like "how far did the player get?" or "what's the highest difficulty they solved?" or "how long does it take them on average to solve these puzzles (in terms of time/turns)?" => At least save settings right?
 
 **@IDEA/@IMPROV: If we ever want to support "campaigns",** I could just save the seed + some crucial detail (like machine starting pos). I can then run a debug tool to just check if that crucial detail is still the same in all generated puzzles, protecting against accidental changes in earlier campaign puzzles.
 
+
+
+
+## Discarded / Future To-Do
+
+* I added the option to have collectibles spawn on top of homes. But it just looks mediocre and messy, so turned it off again.
 
 
 

@@ -20,6 +20,8 @@ var allow_anonymous_homes := false
 var place_collectibles := false
 var forbid_backtracking := true
 
+var collectible_ratio := Vector2(0.75, 0.95)
+
 #endregion
 
 #region FixedProperties
@@ -27,7 +29,6 @@ var forbid_backtracking := true
 var remove_home_upon_completion := false
 var pieces_can_start_on_homes := true
 var pieces_with_home_percentage := Vector2(0.85, 1.0)
-var collectible_ratio := Vector2(0.75, 0.95)
 
 var forbid_shuffling := true
 
@@ -45,6 +46,8 @@ var max_turns_allowed : int
 
 func generate() -> void:
 	PuzzleSettings.apply_difficulty_properties(self)
+	
+	allow_anonymous_homes = PuzzleSettings.get_value("allow_anonymous_homes")
 	
 	var num_tries := 0
 	var max_tries := 50
@@ -153,9 +156,9 @@ func generate_collectibles() -> void:
 			var cell_from := piece.path[i-1]
 			var cell_to := piece.path[i]
 			if not cell_to.can_receive_collectible(): continue
-			if not (cell_to in possible_collectible_dirs): possible_collectible_dirs[cell_to] = []
-			var dir := PuzzleGrid.get_dir_between(cell_from, cell_to)
+			var dir := PuzzleGrid.get_direction_between(cell_from, cell_to)
 			if dir == PuzzleGrid.Direction.NONE: continue
+			if not (cell_to in possible_collectible_dirs): possible_collectible_dirs[cell_to] = []
 			possible_collectible_dirs[cell_to].append(dir)
 	
 	var possible_collectible_cells := possible_collectible_dirs.keys()

@@ -100,17 +100,16 @@ static func get_index_from_grid_pos(pos:Vector2i, grid_size:Vector2i) -> int:
 	return pos.x * grid_size.y + pos.y
 
 static func get_grid_pos_from_index(idx:int, grid_size:Vector2i) -> Vector2i:
-	return Vector2i(floori(idx / grid_size.y), (idx % grid_size.y))
+	return Vector2i(floori(idx / float(grid_size.y)), (idx % grid_size.y))
 
-static func get_dir_between(cell_from:CellData, cell_to:CellData) -> Direction:
+static func get_direction_between(cell_from:CellData, cell_to:CellData) -> Direction:
 	var vec := cell_to.pos - cell_from.pos
-	vec.x = signi(vec.x)
-	vec.y = signi(vec.y)
 	
-	var non_uniform_vector := absi(vec.x) != 0 and absi(vec.y) != 0 and absi(vec.x) != absi(vec.y)
+	var non_uniform_vector := vec.x != 0 and vec.y != 0 and absi(vec.x) != absi(vec.y)
 	if non_uniform_vector: return Direction.NONE
 	
-	return convert_vector_to_direction(vec)
+	var vec_norm := Vector2i(signi(vec.x), signi(vec.y))
+	return convert_vector_to_direction(vec_norm)
 
 func create(new_size:Vector2i) -> void:
 	size = new_size
@@ -169,14 +168,27 @@ func get_random_cell() -> PuzzleCell:
 func get_cells() -> Array[PuzzleCell]:
 	return cells
 
-func get_cells_in_direction(start:CellData, dir := Direction.RIGHT, max_dist := -1) -> Array[CellData]:
+func get_cells_in_direction(start:PuzzleCell, dir := Direction.RIGHT, max_dist := -1) -> Array[PuzzleCell]:
 	var cell_to_check := start
-	var arr : Array[CellData] = []
+	var arr : Array[PuzzleCell] = []
 	while cell_to_check:
 		cell_to_check = cell_to_check.get_neighbor_at(dir)
 		if not cell_to_check: break
 		arr.append(cell_to_check)
 		if max_dist != -1 and arr.size() >= max_dist: break
+	return arr
+
+func get_cells_between(start:PuzzleCell, end:PuzzleCell) -> Array[PuzzleCell]:
+	var dir := get_direction_between(start, end)
+	if dir == Direction.NONE: return []
+	
+	var cell_to_check := start
+	var arr : Array[PuzzleCell] = []
+	while true:
+		cell_to_check = cell_to_check.get_neighbor_at(dir)
+		if cell_to_check == end: break
+		arr.append(cell_to_check)
+	
 	return arr
 
 func get_real_bounds(cell_size:Vector2) -> Rect2:

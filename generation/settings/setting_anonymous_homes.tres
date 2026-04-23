@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PuzzleSettingCheckbox" format=3 uid="uid://cnx4b0i4jr6lr"]
+
+[ext_resource type="Script" uid="uid://dhfd6mahjlglv" path="res://puzzle-framework/settings/setting_checkbox.gd" id="1_64oio"]
+
+[resource]
+script = ExtResource("1_64oio")
+key = "allow_anonymous_homes"
+label = "Make Homes Anonymous"
+default = false
+tooltip = "Homes do not show a specific animal that has to finish there (makes puzzles easier)"
+metadata/_custom_type_script = "uid://dhfd6mahjlglv"

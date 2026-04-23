@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PuzzleSettingCheckbox" format=3 uid="uid://dbxi4ft88s10p"]
+
+[ext_resource type="Script" uid="uid://dhfd6mahjlglv" path="res://puzzle-framework/settings/setting_checkbox.gd" id="1_2w8x6"]
+
+[resource]
+script = ExtResource("1_2w8x6")
+key = "highlight_homes"
+label = "Highlight Possible Homes"
+default = true
+tooltip = "Subtly show all possible homes the selected piece might want to go to."
+metadata/_custom_type_script = "uid://dhfd6mahjlglv"

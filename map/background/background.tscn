@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://d3t3m7tjxqog5"]
+
+[ext_resource type="Script" uid="uid://bhsuqef50tvhp" path="res://map/background/background.gd" id="1_n5q5j"]
+[ext_resource type="Texture2D" uid="uid://elsu6yu0knq7" path="res://map/background/bg-1.png" id="2_1nkgi"]
+[ext_resource type="Texture2D" uid="uid://c4dggydfpkb3c" path="res://map/background/bg-2.png" id="3_087kh"]
+[ext_resource type="Texture2D" uid="uid://sa0oes6r3kph" path="res://map/background/bg-3.png" id="4_oxmt2"]
+[ext_resource type="Texture2D" uid="uid://c6igip0p41bj2" path="res://map/background/bg-4.png" id="5_tbw8b"]
+[ext_resource type="Texture2D" uid="uid://d2ed3nb0itbdv" path="res://map/background/Gemini_Generated_Image_tma53ytma53ytma5.png" id="6_60w25"]
+
+[node name="Background" type="CanvasLayer" unique_id=1518080263 node_paths=PackedStringArray("texture_rect")]
+layer = -1
+script = ExtResource("1_n5q5j")
+texture_rect = NodePath("TextureRect")
+textures = Array[Texture2D]([ExtResource("2_1nkgi"), ExtResource("3_087kh"), ExtResource("4_oxmt2"), ExtResource("5_tbw8b")])
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1255915927]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("6_60w25")
+expand_mode = 1
+stretch_mode = 6

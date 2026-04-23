@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PuzzleSettingCheckbox" format=3 uid="uid://deun47tlgace2"]
+
+[ext_resource type="Script" uid="uid://dhfd6mahjlglv" path="res://puzzle-framework/settings/setting_checkbox.gd" id="1_kd3wv"]
+
+[resource]
+script = ExtResource("1_kd3wv")
+key = "disable_maximum_turns"
+label = "Disable Maximum Turns"
+default = false
+tooltip = "You get infinite moves/time to solve the puzzle."
+metadata/_custom_type_script = "uid://dhfd6mahjlglv"

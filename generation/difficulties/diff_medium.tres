@@ -8,6 +8,7 @@ script = ExtResource("1_g4vc6")
 difficulty = 2
 properties = Dictionary[String, Variant]({
 "allow_anonymous_homes": false,
+"collectible_ratio": Vector2(0.35, 0.75),
 "forbid_backtracking": true,
 "grid_height_bounds": Vector2i(3, 4),
 "grid_width_bounds": Vector2i(4, 5),

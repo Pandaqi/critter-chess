@@ -24,6 +24,7 @@ func _on_turns_changed(_cur_turn:int, _max_turns:int) -> void:
 	check_game_over()
 
 func _on_turns_exhausted() -> void:
+	if PuzzleSettings.get_value("disable_maximum_turns"): return
 	check_game_over(true)
 
 func check_game_over(forced_end := false) -> void:
