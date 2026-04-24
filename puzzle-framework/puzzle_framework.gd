@@ -36,6 +36,7 @@ var commands : PuzzleCommands
 
 var puzzle_seed := 0
 var state := State.MENU
+var config : PuzzleSettings
 var audio : PuzzleAudio
 var debug : PuzzleDebug
 
@@ -62,11 +63,8 @@ func _enter_tree() -> void:
 	debug = PuzzleDebug.new()
 	add_child(debug)
 	
-	for setting in settings:
-		settings_by_id[setting.key] = setting
-	
-	for difficulty in difficulties:
-		difficulties_by_id[difficulty.difficulty] = difficulty
+	config = PuzzleSettings.new()
+	config.initialize()
 
 func _ready() -> void:
 	default_theme.default_font = font_body

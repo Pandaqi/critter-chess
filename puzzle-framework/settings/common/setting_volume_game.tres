@@ -11,5 +11,5 @@ key = "volume_game"
 label = "Volume Game"
 default = 1.0
 tooltip = "Volume of all game sound effects"
-callback = "AudioServer.set_bus_volume_db(AudioServer.get_bus_index(\"Game\"), linear_to_db(setting.read()))"
+callback = "AudioServer.set_bus_volume_db(AudioServer.get_bus_index(\"Game\"), linear_to_db(setting.value))"
 metadata/_custom_type_script = "uid://bveqd8k261myk"

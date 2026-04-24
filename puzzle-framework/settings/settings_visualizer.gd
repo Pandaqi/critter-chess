@@ -6,17 +6,24 @@ class_name PuzzleSettingsVisualizer
 var settings_by_id : Dictionary[String,PuzzleSetting] = {}
 var active := false
 
+@export var button_reset : Button
+
 signal toggled(ac:bool)
 
 func _ready() -> void:
 	settings_heading.add_theme_font_override("font", PuzzleFramework.font_heading)
 	hide()
 	create_all_settings()
+	button_reset.pressed.connect(_on_reset_pressed)
 
 func toggle_active() -> void:
 	active = not active
 	set_visible(active)
 	toggled.emit(active)
+
+func _on_reset_pressed() -> void:
+	for setting in PuzzleFramework.settings:
+		setting.reset()
 
 func create_all_settings() -> void:
 	for setting in PuzzleFramework.settings:

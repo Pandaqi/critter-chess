@@ -1,9 +1,11 @@
 [gd_resource type="Resource" script_class="PuzzleTutorialStage" format=3 uid="uid://3cpndp47io2y"]
 
 [ext_resource type="AudioStream" uid="uid://dpdxjr7dtk1f5" path="res://ui/tutorial/audio/female/tut-easy.ogg" id="1_n3csw"]
+[ext_resource type="Texture2D" uid="uid://cm8potgjowtdu" path="res://ui/tutorial/images/tut-easy.png" id="2_4ioby"]
 [ext_resource type="Script" uid="uid://dbnf0revlghrs" path="res://puzzle-framework/tutorial/puzzle_tutorial_stage.gd" id="2_815vq"]
 
 [resource]
 script = ExtResource("2_815vq")
 audio = ExtResource("1_n3csw")
+image_background = ExtResource("2_4ioby")
 metadata/_custom_type_script = "uid://dbnf0revlghrs"

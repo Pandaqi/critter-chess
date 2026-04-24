@@ -266,6 +266,12 @@ So no, I moved all those ideas to a _new_ game. _Critter Chess: Deluxe_ or whate
 
 The last thing I did was update the store page / marketing text to be clear on what this game is and isn't.
 
+{{% remark %}}
+No, wait, the last thing I did was make some improvements to my Puzzle Framework again. I try to add 1--3 features each time I make a game, so that the next puzzle game can do even more stuff or be made even faster. This time, I added the long-awaited feature that YOUR SETTINGS ARE SAVED BETWEEN SESSIONS and turned some crucial functionality I need a lot into a generic module I can easily reuse in next games now. 
+
+For example, the system now automatically tracks turns/moves and sends signals by default when you're out of turns (and should lose). All my next puzzle games can just hook into that system with one line of code instead of requiring me to retype the 20 lines of code to manage turns each time ;)
+{{% /remark %}}
+
 ## Conclusion
 
 I feel like I'm repeating myself a lot in these conclusions (at least in all the devlogs about my puzzle games). 

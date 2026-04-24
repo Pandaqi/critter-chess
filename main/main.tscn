@@ -65,6 +65,8 @@ text = "Turn 2/4"
 
 [node name="PuzzleTutorial" type="CanvasLayer" parent="." unique_id=1740295279 node_paths=PackedStringArray("container_2d")]
 script = ExtResource("10_fwcvl")
+background_anchor = Vector2(0.1, 0.5)
+background_scale = 0.5
 container_2d = NodePath("../Visualizer")
 metadata/_custom_type_script = "uid://dpg60n5rlnn4j"
 

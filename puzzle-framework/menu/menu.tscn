@@ -177,7 +177,7 @@ theme_override_constants/margin_bottom = 8
 [node name="ButtonSettings" parent="CanvasLayer/ButtonSettings" unique_id=307022183 instance=ExtResource("5_suu3d")]
 layout_mode = 2
 
-[node name="Settings" type="Control" parent="CanvasLayer" unique_id=174193722 node_paths=PackedStringArray("settings_container", "settings_heading")]
+[node name="Settings" type="Control" parent="CanvasLayer" unique_id=174193722 node_paths=PackedStringArray("settings_container", "settings_heading", "button_reset")]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -192,7 +192,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("6_pilmq")
 settings_container = NodePath("NinePatchRect/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer")
-settings_heading = NodePath("NinePatchRect/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/Heading")
+settings_heading = NodePath("NinePatchRect/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/Heading")
+button_reset = NodePath("NinePatchRect/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/PaddingRight/ButtonReset")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Settings" unique_id=1938900119]
 custom_minimum_size = Vector2(384, 512)
@@ -241,8 +242,34 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Heading" type="Label" parent="CanvasLayer/Settings/NinePatchRect/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=1781819245]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Settings/NinePatchRect/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=385029549]
+layout_mode = 2
+alignment = 1
+
+[node name="PaddingLeft" type="Control" parent="CanvasLayer/Settings/NinePatchRect/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=295851881]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Heading" type="Label" parent="CanvasLayer/Settings/NinePatchRect/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1781819245]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Settings"
 horizontal_alignment = 1
+
+[node name="PaddingRight" type="Control" parent="CanvasLayer/Settings/NinePatchRect/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1703619670]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ButtonReset" type="Button" parent="CanvasLayer/Settings/NinePatchRect/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/PaddingRight" unique_id=2033528247]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -55.0
+offset_top = -19.0
+offset_bottom = 19.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Reset"

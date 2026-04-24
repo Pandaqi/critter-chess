@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="critter-chess"
-run/main_scene="uid://6f215upa66k1"
+run/main_scene="uid://ioo441cokhft"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="uid://cwe5ae0wdjrcb"
 

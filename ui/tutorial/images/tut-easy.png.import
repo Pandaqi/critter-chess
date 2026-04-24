@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://brw8euddhttik"
-path="res://.godot/imported/Gemini_Generated_Image_2a7phv2a7phv2a7p.png-b5757f318234100f7d9faad566b6a5a5.ctex"
+uid="uid://cm8potgjowtdu"
+path="res://.godot/imported/tut-easy.png-f6f5b1d5250ee68a03c8892a4258acc8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://map/background/Gemini_Generated_Image_2a7phv2a7phv2a7p.png"
-dest_files=["res://.godot/imported/Gemini_Generated_Image_2a7phv2a7phv2a7p.png-b5757f318234100f7d9faad566b6a5a5.ctex"]
+source_file="res://ui/tutorial/images/tut-easy.png"
+dest_files=["res://.godot/imported/tut-easy.png-f6f5b1d5250ee68a03c8892a4258acc8.ctex"]
 
 [params]
 
@@ -23,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

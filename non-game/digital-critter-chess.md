@@ -1,13 +1,11 @@
 # Critter Chess
 
-# To-Do
-
-* Tutorial: Images
-* Mystery Critters: Create example images of all mystery animal movements => Export PDF and include
-
 
 ## PuzzleFramework (THIS IS LATEST VERSION NOW)
 
+* Make a generic "display list of things centered" module because I need that a lot.
+  * It takes in a SIZE + SCENE to instantiate, then automatically makes as many as needed and positions them the right way.
+  * You can also set a custom CALLBACK for the ones that are active/inactive. (The default is something like `set_active` or something.)
 * Allow setting the _scale_ of the `give_feedback` node (and other UI elements??)
 * SOME WAY TO TRACK/SAVE PROGRESS? Like "how far did the player get?" or "what's the highest difficulty they solved?" or "how long does it take them on average to solve these puzzles (in terms of time/turns)?" => At least save settings right?
 
@@ -16,6 +14,8 @@
 
 ## Discarded / Future To-Do
 
+* Maybe pick base animals that are more differentiated in their silhouette. (The Bear + Fox both have a crown and their small form in the corners is pretty identical.)
+* Update tutorial to clarify they can only jump over ONE piece (per move). And that pieces block each other.
 * I added the option to have collectibles spawn on top of homes. But it just looks mediocre and messy, so turned it off again.
 * One mystery critter (Chick) used to have the "range" rule: only allowed to move 2 spaces at most. This ended up not being as interesting as other ideas though.
 

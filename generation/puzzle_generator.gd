@@ -28,7 +28,7 @@ var collectible_ratio := Vector2(0.75, 0.95)
 
 var remove_home_upon_completion := false
 var pieces_can_start_on_homes := true
-var pieces_with_home_percentage := Vector2(0.85, 1.0)
+var pieces_with_home_percentage := Vector2(1.0, 1.0)
 
 var forbid_shuffling := true
 
@@ -182,7 +182,7 @@ func clean_up(desperate := false) -> bool:
 	for piece in pieces:
 		var start_cell := piece.get_start_cell()
 		if not start_cell.is_home(): continue
-		if (not pieces_can_start_on_homes) or allow_anonymous_homes:
+		if (not pieces_can_start_on_homes) and (not allow_anonymous_homes):
 			print("PuzzleGenerator | Piece starts on home while the configuration disallows this")
 			return false
 		

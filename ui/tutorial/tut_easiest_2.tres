@@ -1,9 +1,11 @@
 [gd_resource type="Resource" script_class="PuzzleTutorialStage" format=3 uid="uid://ccc5dyucjdj83"]
 
+[ext_resource type="Texture2D" uid="uid://bg5trkvp3fs38" path="res://ui/tutorial/images/tut-easiest.png" id="1_7fd7e"]
 [ext_resource type="Script" uid="uid://dbnf0revlghrs" path="res://puzzle-framework/tutorial/puzzle_tutorial_stage.gd" id="1_ltt6s"]
 
 [resource]
 script = ExtResource("1_ltt6s")
+image_background = ExtResource("1_7fd7e")
 object_focus_index = 1
 object_focus_is_pointer = true
 pointer_tween_duration = 5.0

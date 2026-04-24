@@ -38,9 +38,14 @@ func create_header_node() -> Label:
 func write(_val:Variant) -> void:
 	pass
 
+func set_value_from_config(val:Variant) -> void:
+	value = val
+	on_value_changed()
+
 func on_value_changed() -> void:
 	value_changed.emit(self)
 	run_custom_callback()
+	PuzzleFramework.config.set_config_value(key, value)
 
 func get_value_safe() -> Variant:
 	if value != null: return value
@@ -58,6 +63,10 @@ func enable() -> void:
 ## Disallows the input to be changed by the user
 func disable() -> void:
 	pass
+
+## Hard resets to default value
+func reset() -> void:
+	write(default)
 
 ## Validates the input; returns the error message if something's wrong
 func validate() -> String:
